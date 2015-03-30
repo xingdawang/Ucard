@@ -47,11 +47,11 @@ $mail->setFrom('no-reply@UcardStore.com', 'Ucard Store');
 
 //Set an alternative reply-to address
 //$mail->addReplyTo('replyto@example.com', 'First Last');
-$mail->addCC("wxd598113636@gmail.com");
+//$mail->addCC("wxd598113636@gmail.com");
 
 //Set who the message is to be sent to
 //$mail->addAddress('wxd598113636@gmail.com', 'Ucard Store');
-$mail->addAddress('0804908@gmail.com');
+$mail->addAddress('wxd598113636@gmail.com');
 
 //Set the subject line
 $mail->Subject = 'Ucard 2015';
@@ -59,7 +59,7 @@ $mail->Subject = 'Ucard 2015';
 //Read an HTML message body from an external file, convert referenced images to embedded,
 //convert HTML into a basic plain-text alternative body
 //$mail->msgHTML(file_get_contents('contents.html'), dirname(__FILE__));
-$msg="静雯，你现在正在看的这样邮件是兴达敲的程序发送出来的，所有的小组建功能，除了生成pdf模块外，功能均已实现。"."\r\n"."facebook的登录在：http://xingdawang.me/loginFacebook.html，现在可能还不完善，但是经过快速迭代的修改和优化，咱们可以做的更好!";
+$msg="静雯，你现在正在看的这样邮件是兴达敲的程序发送出来的，所有的小组建功能，除了生成pdf模块外，功能均已实现。"."<br> <br>"."facebook的登录在：http://xingdawang.me/loginFacebook.html，现在可能还不完善，但是经过快速迭代的修改和优化，咱们可以做的更好!";
 $mail->msgHTML("$msg");
 
 //Replace the plain text body with one created manually

@@ -27,27 +27,61 @@
                 echo "Please login again"; 
         }
         else {
-                if(!getimagesize($_FILES["imageToUpload"]["tmp_name"])) {
-                        echo "please select an image";
+                $filetype = $_FILES["imageToUpload"]["type"];
+                if($filetype != "image/jpeg" && $filetype != "image/png" && $filetype != "image/gif") {
+                        echo "please select an image (jpg / png / gif)";
                 }
                 else {
-                        if($_FILES["imageToUpload"]["size"] > 500000){
+                        if($_FILES["imageToUpload"]["size"] > 600000){
                                 echo "Image is biger than 500K";
                         }
                         else {
-                                move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target);
+                                // create photo thumb instead the real size
+                                // Check phpinfo(), all the gd function should be supported.
+                                
+                                // Create image from file
+                                switch(strtolower($_FILES['imageToUpload']['type']))
+                                {
+                                     case 'image/jpeg':
+                                         $img = imagecreatefromjpeg($_FILES['imageToUpload']['tmp_name']);
+                                         break;
+                                     case 'image/png':
+                                         $img = imagecreatefrompng($_FILES['imageToUpload']['tmp_name']);
+                                         break;
+                                     case 'image/gif':
+                                         $img = imagecreatefromgif($_FILES['imageToUpload']['tmp_name']);
+                                         break;
+                                     default:
+                                         exit('Unsupported type: '.$_FILES['imageToUpload']['type']);
+                                }
+
+                                //$img = imagecreatefromjpeg($_FILES['imageToUpload']['tmp_name']);
+                                
+                                // get privous image size
+                                $size = GetImageSize($_FILES['imageToUpload']['tmp_name']);
+                                $previous_icon_width = $size[0];
+                                $previous_icon_height = $size[1];
+                          
+                                // set thumbnail size
+                                $new_width = "200";
+                                $new_height = "200";
+                          
+                                // create a new temporary image $tep_img is the canvas, $img is the old image
+                                $tmp_img = imagecreatetruecolor( $new_width, $new_height );
+                          
+                                // copy and resize old image into new image 
+                                imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $previous_icon_width, $previous_icon_height );
+                                
+                                // save thumbnail into a file
+                                imagejpeg( $tmp_img, $target);
+      
+      
+                                //image without conpression
+                                //move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target);
                                 echo "Update succeed";
                         }     
                 }
         }
-        //echo $target;
-        /*
-        if (move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target)) {
-            print "Received {$_FILES['imageToUpload']['name']} - its size is {$_FILES['imageToUpload']['size']}"."<br>";
-        } else {
-            print "Upload failed!";
-        }
-        */
         
         // Write link into the database
         $sql = "UPDATE $tbl_name SET user_icon = '$target' WHERE uuid = '$uuid'";
