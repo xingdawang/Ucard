@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Ucard</title>
+        <link rel="icon" type="image/png" sizes="96x96" href="Images/favicon-96x96.png" />
+        <link href="/CSS/StyleSheet.css" rel="stylesheet" type="text/css" media="all" />
+    </head>
+<body>
+    <form id="form1">
+    <div id="wrapper-bg">
+        <div id="wrapper" class="container">
+            <div id="logo">
+                <h1><a href="/index.php"><span>Ucard</span>Store</a></h1>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li class="active"><a href="/index.php" accesskey="1" title="">Home</a></li>
+                    <li><a href="#" accesskey="2" title="">Ucard</a></li>
+                    <li><a href="#" accesskey="3" title="">Story</a></li>
+		    <li><a href="#" accesskey="4" title="">Language</a></li>
+		    <li><a href="login.php" accesskey="5" title="">login</a></li>
+                    <li><a href="/aboutUs.php" accesskey="5" title="">About us</a></li>
+                </ul>
+            </div>
+	    <div> &nbsp</div>
+        </div>
+		<div id="banner" class="container"> <img src="../Images/cliff.png" width="1200" height="400" alt="" /> </div>
+    </div>
+    </form>
+    <!--
+    <!--This is the register page --
+    <div id="three-column" class="container">
+	<form action="register.php" method="post" enctype="multipart/form-data">
+            
+	    First name: <input type="text" name="firstName" placeholder="First name" ><font color="red"> * </font><br />
+            Middle name: <input type="text" name="middleName"><br />
+            Last name: <input type="text" name="lastName"><font color="red"> * </font><br />
+            E-mail: <input type="text" name="email"><font color="red"> * </font><br />
+            Password: <input type="password" name="password"><font color="red"> * </font><br />
+            Birth of Date: <input type="text" name="birthOfDate" placeholder="yyyy-mm-dd"><br />
+            Sex:
+            <select>
+                <option name="boy">Boy</option>
+                <option value="girl">Girl</option>
+            </select><br />
+            Country:
+            <select name="country">
+                <option>China</option>
+                <option>Ireland</option>
+            </select><br />
+            Nick Name <input type="text" name="birthOfDate" placeholder="Jackson"><br />
+            
+            Upload My Photo: <input type="file" name="imageToUpload" id="fileToUpload"><br />
+	    
+	    <input type="submit" name="submit" value="Ready"><br />
+	</form>
+    </div>
+    -->
+    
+     <form action="register.php" method="post" onsubmit="return checkForm(this);">
+        register
+        E-mail: <input type="email" name="email"><font color="red"> * </font><br />
+        Nickname: <input type="text" name="nickname" placeholder="John"><font color="red"> * </font><br />
+        Password: <input type="password" name="password" ><font color="red"> (6 digit with uppper and lower characters) * </font><br />
+        Password Confirm: <input type="password" name="passwordConfirm"> <font color="red"> (Should be same as above) * </font><br />
+        <input type="submit" name="submit" value="Ready"><br />
+     </form>
+<script type="text/javascript">
+
+  function checkPassword(str)
+  {
+    var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    return re.test(str);
+  }
+
+  function checkForm(form)
+  {
+    if(form.nickname.value == "") {
+      alert("Error: nickname cannot be blank!");
+      form.nickname.focus();
+      return false;
+    }
+    re = /^\w+$/;
+    if(!re.test(form.nickname.value)) {
+      alert("Error: nickname must contain only letters, numbers and underscores!");
+      form.nickname.focus();
+      return false;
+    }
+    if(form.password.value != "" && form.password.value == form.passwordConfirm.value) {
+      if(!checkPassword(form.password.value)) {
+        alert("Error: The password must contain 6 number, upper & lower characters!");
+        form.password.focus();
+        return false;
+      }
+    } else {
+      alert("Error: Password do not match");
+      form.passwordConfirm.focus();
+      return false;
+    }
+    return true;
+  }
+
+</script>
+    
+     <div id="page">
+	<div id="content"></div>
+	<div id="sidebar"></div>
+    </div>
+    <div id="footer">
+	    <p>Copyright (c) 2015 Ucard Tech Inc. All rights reserved. </p>
+    </div>
+</body>
+</html>

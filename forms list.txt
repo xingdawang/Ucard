@@ -1,0 +1,35 @@
+-----------------------------------------------------
+注册页面(signUp.html) - 一个form
+	
+	form id = signUpPage_signUpInfo_form
+	其action位于functionsOfSignUpPage.js - line 10:
+		document.getElementById("signUpPage_signUpInfo_form").action = "signUp.php";
+
+	该form用于提交用户注册信息：
+		1.email. 			name = "signUp_email_input" (functionsOfSignUpPage.js - line 16)
+		2.name. 			name = "signUp_name_input" (functionsOfSignUpPage.js - line 21)
+		3.password. 			name = "signUp_password_input" (functionsOfSignUpPage.js - line 26)
+		4.password confirmation. 	name = "signUp_passwordConfirm_input" (functionsOfSignUpPage.js - line 31)
+
+-----------------------------------------------------
+登陆页面(signIn.html) - 两个form
+	
+	第一个：
+	form id = signInPage_signInInfo_form
+
+	该form用于提交用户登陆信息：
+		1.email/name. 			name = "signIn_name_input" (functionsOfSignInPage.js - line 20)
+		2.password. 			name = "signIn_password_input" (functionsOfSignUpPage.js - line 24
+
+	其action位于functionsOfSignInPage.js - line 8:
+		document.getElementById("signInPage_signInInfo_form").action = "login.php";
+
+	第二个：
+	form id = signInPage_emailInfor_form
+
+	该form用于提交用户邮箱信息：
+		1.email. 			name = "signIn_email_input" (functionsOfSignInPage.js - line 55)
+
+	其action位于functionsOfSignInPage.js - line 44:
+		document.getElementById("signInPage_emailInfo_form").action = "forgetPassword.php";
+-----------------------------------------------------
