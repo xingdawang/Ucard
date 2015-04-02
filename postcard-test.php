@@ -29,6 +29,7 @@
     $result = mysql_query($sql);
     $row = mysql_fetch_array($result);
     $uuid = $row['uuid'];
+    echo "$uuid";
     
     // Upload postcard two sides
     // Generate photo path and name

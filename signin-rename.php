@@ -23,8 +23,10 @@
 	    //If user have already logged in, show user nickname use this script
 	    session_start();
 	    if ($_SESSION["nickname"]){
-		echo "user nickname: ".$_SESSION["nickname"]."<br><br>";
-		echo "<a href='personal-details-rename.php'>Clik here to add more personal data</a>"."<br>";
+		echo "user nickname: ".$_SESSION["nickname"]."<br>";
+		echo "<a href='personal-details-rename.php'>Add more personal data</a>"."<br>";
+		echo "<a href='#'>See my account</a>"."<br>";
+		echo "<a href='signout.php'>Sign out</a>"."<br>";
 	    }
 	    ?>
 	    
