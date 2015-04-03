@@ -52,7 +52,7 @@
         $body = "Ucard account registration successful";
         include"send-email.php";
         sendEmail($email, $subject, $body);
-        header('Location: http://www.baidu.com');
+        header('Location: story-rename.php');
     }
     mysql_close();
 ?>

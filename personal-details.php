@@ -110,6 +110,10 @@
     include "connectDB.php";
     $tbl_name="userinfo"; // Table name
     
+    if($sex == "girl")
+        $sex = 0;           //girl
+    else
+        $sex = 1;           //boy
     // Upadate data
     $sql = "UPDATE $tbl_name SET ".
     "first_name = '$firstName', ".
@@ -123,7 +127,7 @@
     mysql_query($sql);
     
     // After update the personal details, redirect to the Story page
-    header('Location: http://www.baidu.com');
+    header('Location: my-account-rename.php');
     mysql_close();
 
 ?>

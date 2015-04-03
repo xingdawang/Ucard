@@ -25,7 +25,8 @@
 	    if ($_SESSION["nickname"]){
 		echo "user nickname: ".$_SESSION["nickname"]."<br>";
 		echo "<a href='personal-details-rename.php'>Add more personal data</a>"."<br>";
-		echo "<a href='#'>See my account</a>"."<br>";
+		echo "<a href='my-account-rename.php'>See my account</a>"."<br>";
+		echo "<a href='confirm-postcard-rename.php'>Confirm postcard</a>"."<br>";
 		echo "<a href='signout.php'>Sign out</a>"."<br>";
 	    }
 	    ?>

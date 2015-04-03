@@ -55,7 +55,7 @@
 		//echo $_COOKIE["$cookie_username"];
 		
 		// Redirect to Story page
-		header('Location: http://www.baidu.com');
+		header('Location: story-rename.php');
 	    }
 	    else {
 		echo "Password is wrong";

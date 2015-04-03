@@ -12,6 +12,8 @@
     $receiverAddress = $_POST['receiverAddress'];
     $photoLocation = $_POST['photoLocation'];
     $postcardQuotation = $_POST['postcardQuotation'];
+    $originalCountry = $_POST['originalCountry'];
+    $destinationCountry = $_POST['destinationCountry'];
     
     // Prevent xml injection
     $email = stripcslashes($email);
@@ -19,6 +21,9 @@
     $receiverAddress = stripcslashes($receiverAddress);
     $photoLocation = stripcslashes($photoLocation);
     $postcardQuotation = stripcslashes($postcardQuotation);
+    $originalCountry = stripcslashes($originalCountry);
+    $destinationCountry = stripcslashes($destinationCountry);
+    
     
     // Connect to database
     include "connectDB.php";
@@ -29,7 +34,7 @@
     $result = mysql_query($sql);
     $row = mysql_fetch_array($result);
     $uuid = $row['uuid'];
-    echo "$uuid";
+    //echo "$uuid";
     
     // Upload postcard two sides
     // Generate photo path and name
@@ -63,14 +68,45 @@
         }   
     }
     else {
-        
         echo "please select an image (jpg / png / gif)";
     }
     
-    // Store all necessary information into database
+    //echo "<br>".$uuid."<br>";
+    // Store all necessary information into  postcard table
     $tbl_name = "postcard";
     $sql = "INSERT INTO $tbl_name (`uuid`, `postcard_greeting`, `receiver_address`, `postcard_head`, `postcard_back`, `postcard_location`, `postcard_quotation`)"
     ." VALUES ('$uuid', '$postcardBody', '$receiverAddress', '$frontFolder', '$backFolder', '$photoLocation', '$postcardQuotation')";
+    mysql_query($sql);
+    
+    // Get this postcard_uid
+    $sql = "SELECT postcard_uid FROM $tbl_name WHERE postcard_head = '$frontFolder'";
+    $result = mysql_query($sql);
+    $row = mysql_fetch_array($result);
+    $postcard_uid = $row['postcard_uid'];
+    //echo $postcard_uid;
+    
+    // Calculate postcard_confirm_code and add it to the postcard table
+    // Calculate postcard_confirm_code
+    $temp1 = md5($postcard_uid);
+    $temp2 = substr($temp1,1,8);    // substring from char 1 - 9
+    $postcard_confirm_code = md5($temp2);
+    // Add it into postcard table
+    $sql = "UPDATE $tbl_name SET postcard_confirm_code = '$postcard_confirm_code' WHERE postcard_uid = $postcard_uid";
+    mysql_query($sql);
+    
+    // Generate corresponding consumption record in record table
+    $tbl_name = "record";
+    $record_uid = $uuid.generateRandomString();
+    $payment_state = 1; // 1 paid, 2 unpaid
+    $total_price = 299;
+    $sending_state = 1;
+    $sql = "INSERT INTO $tbl_name (`record_uid`, `uuid`, `postcard_uid`, `payment_state`, `total_price`, `sending_state`, `original_country`, `destination_country`)" // , `payment_state`, `total_price`, `sending_state`, `original_country`, `destination_country`
+    ." VALUES ('$record_uid', '$uuid', $postcard_uid, $payment_state, $total_price, $sending_state, '$originalCountry', '$destinationCountry')"; // , $payment_state, $total_price, $sending_state, '$originalCountry', '$destinationCountry'
+    mysql_query($sql);
+    
+    // Update story information in story table
+    $tble_name = "story";
+    $sql = "INSERT INTO $tble_name (`postcard_uid`) VALUES ($postcard_uid)";
     mysql_query($sql);
     
     mysql_close();
