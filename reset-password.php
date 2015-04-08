@@ -43,7 +43,7 @@
             sendEmail($email, $subject, $body);
             
 	    // Redirect to Story page
-	    header('Location: http://www.baidu.com');
+	    header('Location: my-account-rename.php');
 
         }
     }
