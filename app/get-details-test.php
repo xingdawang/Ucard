@@ -26,7 +26,7 @@
 	    }
 	    ?>
             
-	    Nickname: <input type="text" name="nickname"><br>
+	    Uuid: <input type="text" name="uuid"><br>
 	    <input type="submit">
             
             <?php

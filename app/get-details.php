@@ -10,6 +10,7 @@
     // Use for transfering json data
     $json_code = '';
     $json_message = '';
+    $json_data = '';
     $json_first_name = '';
     $json_middle_name = '';
     $json_last_name = '';
@@ -28,42 +29,51 @@
     // Read all personal information
     include "connectDB.php";
     $tbl_name = "userinfo";
-    $nickname = $_GET['nickname'];
-    $sql = "SELECT * FROM $tbl_name WHERE user_nickname = '$nickname'";
+    $uuid = $_GET['uuid'];
+    $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
     $result = mysql_query($sql);
+    $rowNumber = mysql_num_rows($result);
+    if($rowNumber == 0) {
+        $json_code = '1';
+        $json_message = 'User not found';
+        $json_data['first_name'] = '';
+        $json_data['middle_name'] = '';
+        $json_data['last_name'] = '';
+        $json_data['email'] = '';
+        $json_data['house_number'] = '';
+        $json_data['street'] = '';
+        $json_data['city'] = '';
+        $json_data['county'] = '';
+        $json_data['postcode'] = '';
+        $json_data['register_type'] = '';
+        $json_data['third_party_uid'] = '';
+        $json_data['date_of_birth'] = '';
+        $json_data['sex'] = '';
+        $json_data['country'] = '';
+    }
     $row = mysql_fetch_array($result);
     mysql_close();
     
-    // Feedback result
-    $json_first_name = $row['first_name'];
-    $json_middle_name = $row['middle_name'];
-    $json_last_name = $row['last_name'];
-    $json_email = $row['email'];
-    $json_house_number = $row['house_number'];
-    $json_street = $row['street'];
-    $json_city = $row['city'];
-    $json_county = $row['county'];
-    $json_postcode = $row['postcode'];
-    $json_register_type = $row['register_type'];
-    $json_third_party_uid = $row['third_party_uid'];
-    $json_date_of_birth = $row['date_of_birth'];
-    $json_sex = $row['sex'];
-    $json_country = $row['country'];
     
-    $array = Array('first_name'=>$json_first_name,
-                   'middle_name'=>$json_middle_name,
-                   'last_name'=>$json_last_name,
-                   'email'=>$json_email,
-                   'house_number'=>$json_house_number,
-                   'street'=>$json_street,
-                   'city'=>$json_city,
-                   'county'=>$json_county,
-                   'postcode'=>$json_postcode,
-                   'register_type'=>$json_register_type,
-                   'third_party_uid'=>$json_third_party_uid,
-                   'date_of_birth'=>$json_date_of_birth,
-                   'sex'=>$json_sex,
-                   'country'=>$json_country
-                   );
+    if($json_code != 1) {
+        $json_code = '1000';
+        $json_message = 'Get personal info succeed';
+        $json_data['first_name'] = $row['first_name'];
+        $json_data['middle_name'] = $row['middle_name'];
+        $json_data['last_name'] = $row['last_name'];
+        $json_data['email'] = $row['email'];
+        $json_data['house_number'] = $row['house_number'];
+        $json_data['street'] = $row['street'];
+        $json_data['city'] = $row['city'];
+        $json_data['county'] = $row['county'];
+        $json_data['postcode'] = $row['postcode'];
+        $json_data['register_type'] = $row['register_type'];
+        $json_data['third_party_uid'] = $row['third_party_uid'];
+        $json_data['date_of_birth'] = $row['date_of_birth'];
+        $json_data['sex'] = $row['sex'];
+        $json_data['country'] = $row['country'];
+    }
+    
+    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data);
     die(json_encode($array));
 ?>

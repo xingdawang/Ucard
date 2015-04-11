@@ -174,8 +174,11 @@
     mysql_query($sql);
     mysql_close();
     
-    //$json_code = 5;
-    //$json_message = "Update personal information complete";
+    if($json_code == 4) {
+        $json_code = 1000;
+        $json_message = "Update personal information and icon complete";    
+    }
+    
     $array = Array('message'=>$json_message, 'code'=>$json_code);
     die(json_encode($array));
 

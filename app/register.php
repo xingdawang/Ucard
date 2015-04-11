@@ -55,7 +55,7 @@
     else {
         $sql = "INSERT INTO $tbl_name (uuid, email, password, user_nickname) VALUES ('$uuid', '$email', '$password', '$nickname')";
         $retreve = mysql_query("$sql");
-        $json_code = 3;
+        $json_code = 1000;
         $json_message = 'Registration complete';
     }
     $array = Array('message'=>$json_message, 'code'=>$json_code, 'data'=>$json_data);

@@ -24,7 +24,7 @@
     // Use for transfering json data
     $json_code = '';
     $json_message = '';
-    $json_userNickname = '';
+    $json_data = '';
 
     // Connect database
     include "connectDB.php";
@@ -37,23 +37,25 @@
         //echo "User not exist";
 	$json_code = 1;
 	$json_message = 'User not exist';
+	$json_data['uuid'] = '';
     }
     else {
         while($row = mysql_fetch_array($result)) {
             if($row['password'] == $password) {
                 //echo "Succeed";
-		$json_code = 2;
+		$json_code = 1000;
 		$json_message = 'Signin succeed';
-		$json_userNickname = $row['user_nickname'];
+		$json_data['uuid'] = $row['uuid'];
 	    }
 	    else {
 		//echo "Password is wrong";
-		$json_code = 3;
+		$json_code = 2;
 		$json_message = 'Password is wrong';
+		$json_data['uuid'] = '';
 	    }
 	}
     }
-    $array = Array('message'=>$json_message, 'code'=>$json_code, 'userNickname'=>$json_userNickname);
+    $array = Array('message'=>$json_message, 'code'=>$json_code, 'data'=>$json_data);
     die(json_encode($array));
     mysql_close();
 
