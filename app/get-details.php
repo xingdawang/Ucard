@@ -34,8 +34,8 @@
     $result = mysql_query($sql);
     $rowNumber = mysql_num_rows($result);
     if($rowNumber == 0) {
-        $json_code = '1';
-        $json_message = 'User not found';
+        $json_code = '9';
+        $json_message = 'Cannot get user details, user not found';
         $json_data['first_name'] = '';
         $json_data['middle_name'] = '';
         $json_data['last_name'] = '';
@@ -55,7 +55,7 @@
     mysql_close();
     
     
-    if($json_code != 1) {
+    if($json_code != 9) {
         $json_code = '1000';
         $json_message = 'Get personal info succeed';
         $json_data['first_name'] = $row['first_name'];

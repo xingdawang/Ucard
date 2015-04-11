@@ -36,7 +36,7 @@
     if(mysql_num_rows($result) != 1) {
         //echo "User not exist";
 	$json_code = 1;
-	$json_message = 'User not exist';
+	$json_message = 'Cannot signin, user not exist';
 	$json_data['uuid'] = '';
     }
     else {
@@ -50,7 +50,7 @@
 	    else {
 		//echo "Password is wrong";
 		$json_code = 2;
-		$json_message = 'Password is wrong';
+		$json_message = 'Cannot signin, password is wrong';
 		$json_data['uuid'] = '';
 	    }
 	}

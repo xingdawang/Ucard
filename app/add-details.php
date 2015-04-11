@@ -78,23 +78,23 @@
     // Image Checking
     if($target == "../user-photo-icon/"){
             //echo "Please login again";
-            $json_code = 1;
-            $json_message = "User has logout";
+            $json_code = 5;
+            $json_message = "Cannot add personal details, user has logout";
     }
     else {
         $filetype = $_FILES["imageToUpload"]["type"];
-        echo $filetype."<br>";
+        //echo $filetype."<br>";
         if($filetype != "image/jpeg" && $filetype != "image/png" && $filetype != "image/gif") {
             //echo "please select an image (jpg / png / gif)";
-            $json_code = 2;
-            $json_message = "not select image (jpg or png or gif)";
+            $json_code = 6;
+            $json_message = "Cannot add personal details, not select image (jpg or png or gif)";
             //echo '<meta content="3;/personal-details-rename.php" http-equiv="Refresh" />';
         }
         else {
             if($_FILES["imageToUpload"]["size"] > 500000){
-                echo "Image is biger than 500K";
-                $json_code = 3;
-                $json_message = "Image is biger than 500K";
+                //echo "Image is biger than 500K";
+                $json_code = 7;
+                $json_message = "Cannot add personal details, image is biger than 500K";
                 //echo '<meta content="3;/personal-details-rename.php" http-equiv="Refresh" />';
             }
             else {
@@ -140,8 +140,8 @@
                 //image without conpression
                 //move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target);
                 //echo "Upload user snail icon succeed";
-                $json_code = 4;
-                $json_message = "Upload user snail icon succeed";
+                $json_code = 8;
+                $json_message = "Upload user snail icon succeed, but no further details";
             }     
         }
     }
@@ -175,7 +175,7 @@
     mysql_query($sql);
     mysql_close();
     
-    if($json_code == 4) {
+    if($json_code == 8) {
         $json_code = 1000;
         $json_message = "Update personal information and icon complete";    
     }

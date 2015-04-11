@@ -41,15 +41,15 @@
     $result = mysql_query($sql);
     $rowNumber = mysql_num_rows($result);
     if($rowNumber != 0) {
-        $json_code = 1;
-        $json_message = 'Email has been registered';
+        $json_code = 3;
+        $json_message = 'Cannot register, email has been registered';
     }
     // Check nickname
     $sql = "select * from $tbl_name where user_nickname='$nickname'";
     $result = mysql_query($sql);
     $rowNumber = mysql_num_rows($result);
     if($rowNumber != 0) {
-        $json_code = 2;
+        $json_code = 4;
         $json_message = 'Nickname has been registered';
     }
     else {
