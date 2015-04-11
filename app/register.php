@@ -34,7 +34,7 @@
     // Connect to server and select databse.
     include"connectDB.php";
     $tbl_name="userinfo"; // Table name
-    mysql_select_db("$db_name")or die("cannot select DB");
+    //mysql_select_db("$db_name")or die("cannot select DB");
     
     // Check email
     $sql = "select * from $tbl_name where email='$email'";
@@ -50,7 +50,7 @@
     $rowNumber = mysql_num_rows($result);
     if($rowNumber != 0) {
         $json_code = 4;
-        $json_message = 'Nickname has been registered';
+        $json_message = 'Cannot register, nickname has been registered';
     }
     else {
         $sql = "INSERT INTO $tbl_name (uuid, email, password, user_nickname) VALUES ('$uuid', '$email', '$password', '$nickname')";
