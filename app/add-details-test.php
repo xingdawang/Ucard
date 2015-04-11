@@ -32,7 +32,7 @@
 	}
 	?>
 	
-	Nickname <input type="text" name="nickname" ><br>
+	UUid <input type="text" name="uuid" ><br>
 	Photo <input type="file" name="imageToUpload"> <br>
 	First name <input type="text" name="firstName" ><br>
 	Middle name <input type="text" name="middleName" ><br>

@@ -13,7 +13,7 @@
     
     // Get data from the form
     // Post method
-    $nickname = $_POST['nickname'];
+    $uuid = $_POST['uuid'];
     $firstName = $_POST['firstName'];
     $middleName = $_POST['middleName'];
     $lastName = $_POST['lastName'];
@@ -59,7 +59,8 @@
     
     // Connect to database
     include "connectDB.php";
-    
+
+    /*    
     // find current user uuid to store photo snail icon
     $tbl_name="userinfo"; // Table name
     $sql = "SELECT uuid FROM $tbl_name WHERE user_nickname = '$nickname'";
@@ -67,7 +68,7 @@
     $row = mysql_fetch_array($result);
     $uuid = $row['uuid'];
     mysql_close();
-    
+    */
     
     //Upload image to folder
     $target = "../user-photo-icon/";       //this folder must have 777 privilage
@@ -170,7 +171,7 @@
     "sex = '$sex', ".
     "country = '$country', ".
     "user_icon = '$target' ".
-    "WHERE user_nickname = '$nickname'";
+    "WHERE uuid = '$uuid'";
     mysql_query($sql);
     mysql_close();
     
