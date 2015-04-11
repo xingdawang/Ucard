@@ -1,1 +1,5 @@
-DirectoryIndex index-rename.html
+#DirectoryIndex index-rename.html
+
+# Make all PHP code look like HTML
+#AddType application/x-httpd-php .htm .html
+

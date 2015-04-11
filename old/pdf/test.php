@@ -39,15 +39,15 @@ $pdf = new PDF();
 $pdf -> DefOrientation = "landscape";
 
 $pdf->AliasNbPages();
-$pdf->AddPage();                                // need A6 parameters, search "letter" in fpdf.php
-$pdf ->Image('../Images/jingwen.jpeg',0,0,320); // need 775 privilage
+$pdf->AddPage("landscape","a6");                                // need A6 parameters, search "letter" in fpdf.php
+$pdf ->Image('../Images/551e8e27f030b1428067973gkrY.jpg',0,0,-300); // need 775 privilage
 $pdf->AliasNbPages();
-$pdf->AddPage();
-$pdf ->Image('../Images/cat.jpg',0,0,320);
+$pdf->AddPage("landscape","a6");
+$pdf ->Image('../Images/551e8e27f030b1428067973gkrYT.jpg',0,0,-300);
 /*$pdf->SetFont('Times','',12);
 for($i=1;$i<=40;$i++)
     $pdf->Cell(0,10,'Printing line number '.$i,0,1);
 */
 //pdf->Output("test.pdf","D");
-$pdf->Output();
+$pdf->Output("/..test.pdf","F");
 ?>
