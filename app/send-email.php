@@ -19,7 +19,7 @@
         // 0 = off (for production use)
         // 1 = client messages
         // 2 = client and server messages
-        $mail->SMTPDebug = 2;
+        // $mail->SMTPDebug = 2;
         
         //Ask for HTML-friendly debug output
         $mail->Debugoutput = 'html';
@@ -71,11 +71,14 @@
         
         //UTF-8 encoding
         $mail->CharSet="UTF-8";
+        $mail->send();
+        /*
         //send the message, check for errors
         if (!$mail->send()) {
             echo "Mailer Error: " . $mail->ErrorInfo;
         } else {
             echo "Message sent!";
-        }  
+        }
+        */
     }
 ?>

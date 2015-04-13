@@ -7,7 +7,7 @@
      *  After third party register, if user does not have the nickname, add one
      */
     
-    $uuid = $_GET['uuid'];
+    $nicknameOrEmail = $_GET['nicknameOrEmail'];
     
     // Use for transfering json data
     $json_code = '';
@@ -18,7 +18,7 @@
     include"connectDB.php";
     $tbl_name="userinfo"; // Table name
     
-    $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
+    $sql = "SELECT * FROM $tbl_name WHERE email = '$nicknameOrEmail' OR user_nickname = '$nicknameOrEmail'";
     $result = mysql_query($sql);
     $row = mysql_fetch_array($result);
     $email = $row['email'];
@@ -34,7 +34,7 @@
         /*********************************************************
         *UPDATE URL
         *********************************************************/
-        $emailContent = "Hi click this link to change the password: http://10.211.55.5/app/new-password-test.html";
+        $emailContent = "Hi click this link to change the password: http://212.111.43.104/app/new-password-test.html";
         sendEmail($email, $emailTopic, $emailContent);
         //echo "email has send";
         $json_code = 1000;
