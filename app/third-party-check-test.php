@@ -10,7 +10,7 @@
         <hr>
             
 	    Third party id: <input type="text" name="thirdPartyUid"><br>
-            Register type: <input type="text" name="$registerType"><br>
+            Register type: <input type="text" name="registerType"><br>
 	    <input type="submit">
          
         <hr>
