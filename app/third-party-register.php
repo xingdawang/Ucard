@@ -69,9 +69,10 @@
             mysql_close();
             
             $json_code = 1000;
+            $json_data = $uuid;
             $json_message = "Third party registration complete";   
         }
     }
-    $array = Array('code'=>$json_code, 'message'=>$json_message);
+    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data);
     die(json_encode($array));
 ?>
