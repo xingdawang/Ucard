@@ -6,22 +6,6 @@
 </head>
 
 <body>
-    <p>
-	<b> Interface:</b><br>
-	form action: personal-details.php <br>
-	input Photo name: imageToUpload / type: file <br>
-	input First name: firstName / type: text <br>
-	input Middle name: middleName / type: text <br>
-	input Last name: lastName / type: text <br>
-	input Date of birth name: DateOfBirth / type: date <br>
-	input Sex name: sex / type: select <br>
-	input Country name: country / type: select <br><br>
-	
-	After finish more personal details, redirect to Story page in personal-details.php line 127 <br>
-	If the user logout (due to long time unmovement), re-direct to login page, at personal-details.php line 38 <br>
-	If the user uploaded is not an image or image is bigger than 500K, re-direct to this page, at personal-details.php line 44 & 49 <br>
-	
-    </p>
     <form action="add-details.php" method="post" enctype="multipart/form-data">
         <hr>
 	<?php
@@ -32,8 +16,8 @@
 	}
 	?>
 	
-	UUid <input type="text" name="uuid" ><br>
-	Photo <input type="file" name="imageToUpload"> <br>
+	Uuid <input type="text" name="uuid" ><br>
+	Nickname <input type="text" name="nickname" ><br>
 	First name <input type="text" name="firstName" ><br>
 	Middle name <input type="text" name="middleName" ><br>
 	Last name <input type="text" name="lastName" ><br>

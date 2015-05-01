@@ -7,13 +7,15 @@
      *  Add more personal details
      */
     
-    // Read nickname from the session
-    //session_start();
+    $json_code = "";
+    $json_message = "";
+    $json_data = "";
     
     
     // Get data from the form
     // Post method
     $uuid = $_POST['uuid'];
+    $nickname = $_POST['nickname'];
     $firstName = $_POST['firstName'];
     $middleName = $_POST['middleName'];
     $lastName = $_POST['lastName'];
@@ -27,21 +29,7 @@
     $dateOfBirth = $_POST['dateOfBirth'];   // need time validation
     $sex = $_POST['sex'];
     $country = $_POST['country'];
-    /* Get method
-    $firstName = $_GET['firstName'];
-    $middleName = $_GET['middleName'];
-    $lastName = $_GET['lastName'];
-    $houseNumber = $_GET['houseNumber'];
-    $street = $_GET['street'];
-    $city = $_GET['city'];
-    $county = $_GET['county'];
-    $postcode = $_GET['postcode'];
-    $registerType = $_GET['registerType'];
-    $thirdPartyUid = $_GET['thirdPartyUid'];
-    $dateOfBirth = $_GET['dateOfBirth'];   // need time validation
-    $sex = $_GET['sex'];
-    $country = $_GET['country'];
-    */
+
     // To protect MySQL injection (more detail about MySQL injection)
     $firstName = stripslashes($firstName);
     $middleName = stripslashes($middleName);
@@ -60,127 +48,71 @@
     // Connect to database
     include "connectDB.php";
 
-    /*    
+       
     // find current user uuid to store photo snail icon
     $tbl_name="userinfo"; // Table name
-    $sql = "SELECT uuid FROM $tbl_name WHERE user_nickname = '$nickname'";
+    $sql = "SELECT uuid FROM $tbl_name WHERE uuid = '$uuid'";
     $result = mysql_query($sql);
-    $row = mysql_fetch_array($result);
-    $uuid = $row['uuid'];
-    mysql_close();
-    */
-    
-    //Upload image to folder
-    $target = "../user-photo-icon/";       //this folder must have 777 privilage
-    //$target = $target . basename( $_FILES["imageToUpload"]["name"]);
-    $target = $target.basename($uuid).basename(".jpeg");
-
-    // Image Checking
-    if($target == "../user-photo-icon/"){
-            //echo "Please login again";
-            $json_code = 5;
-            $json_message = "Cannot add personal details, user has logout";
-    }
-    else {
-        $filetype = $_FILES["imageToUpload"]["type"];
-        //echo $filetype."<br>";
-        if($filetype != "image/jpeg" && $filetype != "image/png" && $filetype != "image/gif") {
-            //echo "please select an image (jpg / png / gif)";
-            $json_code = 6;
-            $json_message = "Cannot add personal details, not select image (jpg or png or gif)";
-            //echo '<meta content="3;/personal-details-rename.php" http-equiv="Refresh" />';
-        }
-        else {
-            if($_FILES["imageToUpload"]["size"] > 500000){
-                //echo "Image is biger than 500K";
-                $json_code = 7;
-                $json_message = "Cannot add personal details, image is biger than 500K";
-                //echo '<meta content="3;/personal-details-rename.php" http-equiv="Refresh" />';
-            }
-            else {
-                // create photo thumb instead the real size
-                // Check phpinfo(), all the gd function should be supported.
-                
-                // Create image from file
-                switch(strtolower($_FILES['imageToUpload']['type']))
-                {
-                     case 'image/jpeg':
-                         $img = imagecreatefromjpeg($_FILES['imageToUpload']['tmp_name']);
-                         break;
-                     case 'image/png':
-                         $img = imagecreatefrompng($_FILES['imageToUpload']['tmp_name']);
-                         break;
-                     case 'image/gif':
-                         $img = imagecreatefromgif($_FILES['imageToUpload']['tmp_name']);
-                         break;
-                     default:
-                         exit('Unsupported type: '.$_FILES['imageToUpload']['type']);
-                }
-
-                //$img = imagecreatefromjpeg($_FILES['imageToUpload']['tmp_name']);
-                
-                // get privous image size
-                $size = GetImageSize($_FILES['imageToUpload']['tmp_name']);
-                $previous_icon_width = $size[0];
-                $previous_icon_height = $size[1];
-          
-                // set thumbnail size
-                $new_width = "200";
-                $new_height = "200";
-          
-                // create a new temporary image $tep_img is the canvas, $img is the old image
-                $tmp_img = imagecreatetruecolor( $new_width, $new_height );
-          
-                // copy and resize old image into new image 
-                imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $previous_icon_width, $previous_icon_height );
-                
-                // save thumbnail into a file
-                imagejpeg( $tmp_img, $target);
-
-                //image without conpression
-                //move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target);
-                //echo "Upload user snail icon succeed";
-                $json_code = 8;
-                $json_message = "Upload user snail icon succeed, but no further details";
-            }     
-        }
-    }
-    
-    // Connect to database
-    include "connectDB.php";
-    $tbl_name="userinfo"; // Table name
-    
-    if($sex == "girl")
-        $sex = 0;           //girl
-    else
-        $sex = 1;           //boy
+    $number = mysql_num_rows($result);
+    if($number == 1){
         
-    // Upadate data
-    $sql = "UPDATE $tbl_name SET ".
-    "first_name = '$firstName', ".
-    "middle_name = '$middleName', ".
-    "last_name = '$lastName', ".
-    "house_number = '$houseNumber', ".
-    "street = '$street', ".
-    "city = '$city', ".
-    "county = '$county', ".
-    "postcode = '$postcode', ".
-    "register_type = '$registerType', ".
-    "third_party_uid = '$thirdPartyUid', ".
-    "date_of_birth = '$dateOfBirth', ".
-    "sex = '$sex', ".
-    "country = '$country', ".
-    "user_icon = '$target' ".
-    "WHERE uuid = '$uuid'";
-    mysql_query($sql);
+        //User nickname is unique
+        $tbl_name = "userinfo";
+        $sql = "SELECT * FROM $tbl_name WHERE user_nickname = $nickname";
+        $result_nickname = mysql_query($sql);
+        $number_nickname = mysql_num_rows($result_nickname);
+        if($number_nickname == 0) {
+            //echo $number_nickname;
+            $sql = "UPDATE $tbl_name SET user_nickname = $nickname WHERE uuid = '$uuid'";
+            mysql_query($sql);
+        } else {
+            $json_code = 8;
+            $json_message = "Nickname is exist, other info can be updated";    
+        }
+        
+        // Sex 0 for girl, 1 for boy
+        if($sex == "girl")
+            $sex = 0;           //girl
+        else
+            $sex = 1;           //boy
+        $sql = "UPDATE $tbl_name SET sex = $sex WHERE uuid = '$uuid'";
+        mysql_query($sql);
+
+        // Update other info except nickname, sex
+        if($firstName != "") writeToDatabase('first_name', $firstName, $uuid);
+        if($lastName != "") writeToDatabase('last_name', $lastName, $uuid);
+        if($middleName != "") writeToDatabase('middle_name', $middleName, $uuid);
+        if($houseNumber != "") writeToDatabase('house_number', $houseNumber, $uuid);
+        if($street != "") writeToDatabase('street', $street, $uuid);
+        if($city != "") writeToDatabase('city', $city, $uuid);
+        if($county != "") writeToDatabase('county', $county, $uuid);
+        if($country != "") writeToDatabase('country', $country, $uuid);
+        if($postcode != "") writeToDatabase('postcode', $postcode, $uuid);
+        if($registerType != "") writeToDatabase('register_type', $registerType, $uuid);
+        if($thirdPartyUid != "") writeToDatabase('third_party_uid', $thirdPartyUid, $uuid);
+        if($dateOfBirth != "") writeToDatabase("date_of_birth", $dateOfBirth, $uuid);
+        if($json_code != 8) {
+            $json_code = 1000;
+            $json_message = "Update personal information(include nickname)";
+        }
+        
+    }else {
+        $json_code = 5;
+        $json_message = "User id is not found";
+    }
     mysql_close();
-    
-    if($json_code == 8) {
-        $json_code = 1000;
-        $json_message = "Update personal information and icon complete";    
+
+    function writeToDatabase($databaseItem,$varable, $uuid) {
+        echo $databaseItem. " / ";
+        echo $varable;
+        include "connectDB.php";
+        $tbl_name="userinfo"; // Table name
+        $sql = "UPDATE $tbl_name SET $databaseItem = '$varable' WHERE uuid = '$uuid'";
+        mysql_query($sql);
+        mysql_close();
     }
     
-    $array = Array('message'=>$json_message, 'code'=>$json_code);
+    $array = Array('code'=>$json_code, 'message'=>$json_message );
     die(json_encode($array));
 
 ?>

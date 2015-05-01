@@ -11,20 +11,7 @@
     $json_code = '';
     $json_message = '';
     $json_data = '';
-    $json_first_name = '';
-    $json_middle_name = '';
-    $json_last_name = '';
-    $json_email = '';
-    $json_house_number = '';
-    $json_street = '';
-    $json_city = '';
-    $json_county = '';
-    $json_postcode = '';
-    $json_register_type = '';
-    $json_third_party_uid = '';
-    $json_date_of_birth = '';
-    $json_sex = '';
-    $json_country = '';
+
     
     // Read all personal information
     include "connectDB.php";
@@ -36,6 +23,8 @@
     if($rowNumber == 0) {
         $json_code = '9';
         $json_message = 'Cannot get user details, user not found';
+	$json_data['nickname'] = '';
+	$json_data['photo'] = '';
         $json_data['first_name'] = '';
         $json_data['middle_name'] = '';
         $json_data['last_name'] = '';
@@ -58,6 +47,8 @@
     if($json_code != 9) {
         $json_code = '1000';
         $json_message = 'Get personal info succeed';
+	$json_data['nickname'] = $row['user_nickname'];
+	$json_data['photo'] = $row['user_icon'];
         $json_data['first_name'] = $row['first_name'];
         $json_data['middle_name'] = $row['middle_name'];
         $json_data['last_name'] = $row['last_name'];
