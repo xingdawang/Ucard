@@ -7,7 +7,7 @@
      *  After third party register, if user does not have the nickname, add one
      */
     
-    $nicknameOrEmail = $_GET['nicknameOrEmail'];
+    $user_email = $_GET['email'];
     
     // Use for transfering json data
     $json_code = '';
@@ -18,7 +18,7 @@
     include"connectDB.php";
     $tbl_name="userinfo"; // Table name
     
-    $sql = "SELECT * FROM $tbl_name WHERE email = '$nicknameOrEmail' OR user_nickname = '$nicknameOrEmail'";
+    $sql = "SELECT * FROM $tbl_name WHERE email = '$user_email'";
     $result = mysql_query($sql);
     $row = mysql_fetch_array($result);
     $email = $row['email'];

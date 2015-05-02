@@ -13,7 +13,6 @@
     // Connect to server and select databse.
     include"connectDB.php";
     $tbl_name="userinfo"; // Table name
-    
     $sql = "UPDATE $tbl_name SET password = '$password' WHERE email = '$email'";
     $result = mysql_query($sql);
     mysql_close();

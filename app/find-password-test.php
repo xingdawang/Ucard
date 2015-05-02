@@ -8,7 +8,7 @@
 <body>
     <form action="find-password.php" method="get">
         <hr>
-	    Nickname or Email: <input type="text" name="nicknameOrEmail"><br>
+	    Email: <input type="text" name="email"><br>
 	    <input type="submit">
          
         <hr>
