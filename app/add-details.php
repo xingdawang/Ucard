@@ -14,21 +14,21 @@
     
     // Get data from the form
     // Post method
-    $uuid = $_POST['uuid'];
-    $nickname = $_POST['nickname'];
-    $firstName = $_POST['firstName'];
-    $middleName = $_POST['middleName'];
-    $lastName = $_POST['lastName'];
-    $houseNumber = $_POST['houseNumber'];
-    $street = $_POST['street'];
-    $city = $_POST['city'];
-    $county = $_POST['county'];
-    $postcode = $_POST['postcode'];
-    $registerType = $_POST['registerType'];
-    $thirdPartyUid = $_POST['thirdPartyUid'];
-    $dateOfBirth = $_POST['dateOfBirth'];   // need time validation
-    $sex = $_POST['sex'];
-    $country = $_POST['country'];
+    $uuid = $_GET['uuid'];
+    $nickname = $_GET['nickname'];
+    $firstName = $_GET['firstName'];
+    $middleName = $_GET['middleName'];
+    $lastName = $_GET['lastName'];
+    $houseNumber = $_GET['houseNumber'];
+    $street = $_GET['street'];
+    $city = $_GET['city'];
+    $county = $_GET['county'];
+    $postcode = $_GET['postcode'];
+    $registerType = $_GET['registerType'];
+    $thirdPartyUid = $_GET['thirdPartyUid'];
+    $dateOfBirth = $_GET['dateOfBirth'];   // need time validation
+    $sex = $_GET['sex'];
+    $country = $_GET['country'];
 
     // To protect MySQL injection (more detail about MySQL injection)
     $firstName = stripslashes($firstName);
@@ -51,9 +51,10 @@
        
     // find current user uuid to store photo snail icon
     $tbl_name="userinfo"; // Table name
-    $sql = "SELECT uuid FROM $tbl_name WHERE uuid = '$uuid'";
+    $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
+    
     if($number == 1){
         
         //User nickname is unique
@@ -103,8 +104,6 @@
     mysql_close();
 
     function writeToDatabase($databaseItem,$varable, $uuid) {
-        echo $databaseItem. " / ";
-        echo $varable;
         include "connectDB.php";
         $tbl_name="userinfo"; // Table name
         $sql = "UPDATE $tbl_name SET $databaseItem = '$varable' WHERE uuid = '$uuid'";

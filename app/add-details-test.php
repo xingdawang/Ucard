@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <form action="add-details.php" method="post" enctype="multipart/form-data">
+    <form action="add-details.php" method="get" enctype="multipart/form-data">
         <hr>
 	<?php
 	//If user have already logged in, show user nickname use this script

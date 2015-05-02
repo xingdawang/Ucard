@@ -13,7 +13,7 @@
     //$nicknameOrEmail=$_POST['nicknameOrEmail'];
     //$password=$_POST['password'];
     // Get Method
-    $nicknameOrEmail = $_GET['nicknameOrEmail'];
+    $email = $_GET['email'];
     $password=$_GET['password'];
 
     // To protect MySQL injection (more detail about MySQL injection)
