@@ -16,10 +16,8 @@
     $email = $_GET['email'];
     $password=$_GET['password'];
 
-    // To protect MySQL injection (more detail about MySQL injection)
-    $nicknameOrEmail = stripslashes($nicknameOrEmail);
-    $password = stripslashes($password);
     $password = md5(md5($password));
+    //echo $password;
     
     // Use for transfering json data
     $json_code = '';
@@ -28,10 +26,9 @@
 
     // Connect database
     include "connectDB.php";
-
     // Check email and nickname
     $tbl_name="userinfo"; // Table name
-    $sql = "SELECT * FROM $tbl_name WHERE email = '$nicknameOrEmail' OR user_nickname = '$nicknameOrEmail'";
+    $sql = "SELECT * FROM $tbl_name WHERE email = '$email'";
     $result = mysql_query($sql);
     if(mysql_num_rows($result) != 1) {
         //echo "User not exist";
@@ -55,7 +52,7 @@
 	    }
 	}
     }
-    $array = Array('message'=>$json_message, 'code'=>$json_code, 'data'=>$json_data);
+    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data);
     die(json_encode($array));
     mysql_close();
 
