@@ -42,7 +42,7 @@
         $json_message = $record_uid;
     } else {
         $json_code = 25;
-        $json_data = "Generate record failed, postcard_uid and uuid not fatch";
+        $json_data = "Generate record failed, postcard_uid and uuid not match";
         $json_message = $record_uid;
     }
     mysql_close();
