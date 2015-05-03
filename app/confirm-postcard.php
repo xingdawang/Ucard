@@ -23,7 +23,7 @@
     $number = mysql_num_rows($result);
     if($number == 1){
         $tbl_name = "record";
-        $sql = "UPDATE $tbl_name SET sharing_state = 2 WHERE postcard_uid = '$postcard_confirm_code'";
+        $sql = "UPDATE $tbl_name SET sending_state = 2 WHERE postcard_uid = '$postcard_confirm_code'";
         $result = mysql_query($sql);
         
         // Generate friend record
@@ -43,7 +43,7 @@
             $sql = "INSERT INTO $tbl_name (postcard_friend_uid, friend_uid) VALUES ('$uuid', '$postcard_sender')";
             mysql_query($sql);
             $json_code = 1000;
-            $json_data = 'Record generate success';
+            $json_data = 'Friend record generation succeed';
             $json_message = '';
         }
     }else {
