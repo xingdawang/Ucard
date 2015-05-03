@@ -19,13 +19,14 @@
     $number = mysql_num_rows($result);
     
     if($number == 1) {
-        $tbl_name = "friend";
-        $sql = "SELECT * FROM $tbl_name WHERE friend_uid = '$uuid'";
+        $tbl_name = "record";
+        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid' AND sending_state = 1";
         $result = mysql_query($sql);
-        $number = mysql_num_rows($result);
+        while($row = mysql_fetch_array($result)){
+	    $json_data[] = $row['postcard_uid'];
+	}
         $json_code = 1000;
-        $json_message = "Friend number is returned";
-        $json_data = $number;
+        $json_message = "Sending list returned";
     }else {
         $json_code = 28;
         $json_message = "User id is not found";
