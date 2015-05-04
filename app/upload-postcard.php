@@ -40,8 +40,7 @@
     //echo $postcardBackImage . "2<br>";
     
     // Check image format
-    if(($postcardFrontImage == "image/jpeg"  && $postcardBackImage == "image/jpeg") ||
-        ($postcardFrontImage == "image/png" && $postcardBackImage == "image/png")) {
+    if($postcardFrontImage == "image/png" && $postcardBackImage == "image/png") {
         
         // Check Image size 1748 x 1240 
         $frontInfo = getimagesize($_FILES["postcardFront"]["tmp_name"]);
