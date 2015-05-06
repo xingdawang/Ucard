@@ -26,9 +26,9 @@
         $json_code = 1000;
         $json_message = "Receiving list returned";
         while($row = mysql_fetch_array($result)){
-            $json_data[] = array(
-                'postcard_uid' => $row['postcard_uid']
-            );
+            $json_data_array[] = array(
+		    'postcard_id' => $row['postcard_uid']
+	    );
         }
     }else {
         $json_code = 31;
@@ -36,7 +36,7 @@
     }
     mysql_close();
     
-    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data);
+    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data_array);
     die(json_encode($array));
 
 ?>

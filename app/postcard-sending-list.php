@@ -18,22 +18,41 @@
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
     
+    // Check whether this user is exist
     if($number == 1) {
         $tbl_name = "record";
-        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid' AND sending_state = 1";
+        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
         $result = mysql_query($sql);
-        while($row = mysql_fetch_array($result)){
-	    $json_data[] = $row['postcard_uid'];
+	$number_postcard = mysql_num_rows($result);
+	
+	// Check whether this user has post a postcard
+	if($number_postcard == 0){
+	    $json_code = 45;
+	    $json_message = "This user has not posted a postcard ";
+	} else{
+	    while($row = mysql_fetch_array($result)){;
+		
+		// Get postcard head image
+		$tbl_name = "postcard";
+		$postcard_uid = $row['postcard_uid'];
+		$sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
+		$result_postcard = mysql_query($sql);
+		$postcardFrontImage = mysql_fetch_array($result_postcard);
+		$json_data_array[] = array(
+		    'postcard_id' => $row['postcard_uid'],
+		    'postcard_head' => $postcardFrontImage['postcard_head']
+		);
+	    }
+	    $json_code = 1000;
+	    $json_message = "Sending list returned";   
 	}
-        $json_code = 1000;
-        $json_message = "Sending list returned";
     }else {
         $json_code = 28;
-        $json_message = "User id is not found";
+        $json_message = "User id is not exist";
     }
     mysql_close();
     
-    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data);
+    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data_array);
     die(json_encode($array));
 
 ?>

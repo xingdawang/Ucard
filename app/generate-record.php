@@ -38,12 +38,12 @@
         '$product_name', '$original_country', '$destination_country')";
         mysql_query($sql);
         $json_code = 1000;
-        $json_data = 'Information updates succeed';
-        $json_message = $record_uid;
+        $json_message = 'Information updates succeed';
+        $json_data = $record_uid;
     } else {
         $json_code = 25;
-        $json_data = "Generate record failed, postcard_uid and uuid not match";
-        $json_message = $record_uid;
+        $json_message = "Generate record failed, postcard_uid and uuid not match";
+        $json_data = $record_uid;
     }
     mysql_close();
     
