@@ -16,7 +16,7 @@
     // Read all personal information
     include "connectDB.php";
     $tbl_name = "userinfo";
-    $uuid = $_GET['uuid'];
+    $uuid = $_POST['uuid'];
     $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
     $result = mysql_query($sql);
     $rowNumber = mysql_num_rows($result);

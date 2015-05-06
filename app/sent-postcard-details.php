@@ -5,7 +5,7 @@
      *  @date 4th May 2015
      */
     
-    $postcard_uid = $_GET['postcardID'];
+    $postcard_uid = $_POST['postcardID'];
     $json_data = "";
     $json_message = "";
     $json_code = "";
@@ -22,7 +22,7 @@
         // Check postcard state
         $row = mysql_fetch_array($result);
         $postcard_sending_state = $row['sending_state'];
-        if( $postcard_sending_state == 1) {
+        if( $postcard_sending_state == 1 || $postcard_sending_state == 2) {
             
             //fetch this postcard details
             $tbl_name = "postcard";

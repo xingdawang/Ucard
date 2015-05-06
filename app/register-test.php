@@ -5,23 +5,9 @@
     <title>Sign up</title>
 </head>
 <body>
-    <p>
-	<b> Interface:</b><br>
-	form action: signup.php <br>
-        input E-mail name: email / type: email<br>
-	input Nickname name: nickname / type: text<br>
-	input Password name: password / type: password<br>
-        input Password Confirm: name: passwordConfirm / type: password<br>
-	input submit name: submit / type: submit<br><br>
-        
-	After user Register, re-direct to Story page, link is in signin.php line 55.<br>
-        If failed re-direct to this page again in signin.php line 35 & 43. <br>
-        page signin-rename.php line 32 link to this page <br>
-        use script to check user input in this page between &lt;script&gt; and &lt;/script&gt;
-	
-    </p>
-    <form action="register.php" method="get" onsubmit="return checkForm(this);">
-        <hr>
+
+    <form action="register.php" method="post" onsubmit="return checkForm(this);">
+
             <?php
 	    //If user have already logged in, show user nickname use this script
 	    session_start();
@@ -39,8 +25,7 @@
             Password: <input type="password" name="password" ><font color="red"> (6 digit with uppper and lower characters) * </font><br />
             Password Confirm: <input type="password" name="passwordConfirm"> <font color="red"> (Should be same as above) * </font><br />
             <input type="submit" name="submit" value="Ready"><br />
-        <hr>
-            
+ 
         <script type="text/javascript">
             
             // Password must be at least 6 length with upper and lower charaters

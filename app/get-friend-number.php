@@ -5,7 +5,7 @@
      *  @date 3rd May 2015
      */
     
-    $uuid = $_GET['uuid'];
+    $uuid = $_POST['uuid'];
     $json_data = "";
     $json_message = "";
     $json_code = "";

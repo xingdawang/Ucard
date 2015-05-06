@@ -6,11 +6,10 @@
 </head>
 
 <body>
-    <form action="find-password.php" method="get">
+    <form action="find-password.php" method="post">
         <hr>
 	    Email: <input type="text" name="email"><br>
 	    <input type="submit">
-         
         <hr>
     </form>
 

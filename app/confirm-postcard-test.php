@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <form action="confirm-postcard.php" method="get">
+    <form action="confirm-postcard.php" method="post">
         <hr>
 	    uuid: <input type="text" name="uuid"><br>
             postcard confrim code <input type="text" name="postcardConfirmCode"><br>

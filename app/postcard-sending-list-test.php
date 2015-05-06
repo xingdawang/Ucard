@@ -7,7 +7,7 @@
 
 <body>
 
-    <form action="postcard-sending-list.php" method="get">
+    <form action="postcard-sending-list.php" method="post">
             Uuid: <input type="text" name="uuid"><br>
 	    <input type="submit">
     </form>

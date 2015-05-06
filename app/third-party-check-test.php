@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <form action="third-party-check.php" method="get">
+    <form action="third-party-check.php" method="post">
         <hr>
             
 	    Third party id: <input type="text" name="thirdPartyUid"><br>

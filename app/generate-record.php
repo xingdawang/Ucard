@@ -7,14 +7,14 @@
      *  Generate a record
      */
     
-    $uuid = $_GET['uuid'];
-    $postcard_id = $_GET['postId'];
-    $payment_type = $_GET['paymentType'];
-    $price = $_GET['price'];
-    $product_name = $_GET['productName'];
-    $currency = $_GET['currency'];
-    $original_country = $_GET['originalCountry'];
-    $destination_country = $_GET['destinationCountry'];
+    $uuid = $_POST['uuid'];
+    $postcard_id = $_POST['postId'];
+    $payment_type = $_POST['paymentType'];
+    $price = $_POST['price'];
+    $product_name = $_POST['productName'];
+    $currency = $_POST['currency'];
+    $original_country = $_POST['originalCountry'];
+    $destination_country = $_POST['destinationCountry'];
     $record_uid = uniqid();
     
     // Use for transfering json data

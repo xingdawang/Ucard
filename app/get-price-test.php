@@ -7,7 +7,7 @@
 
 <body>
 
-    <form action="get-price.php" method="get">
+    <form action="get-price.php" method="post">
         <hr>
             Original country:
             <select name="originalCountry">

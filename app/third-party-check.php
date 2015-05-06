@@ -7,8 +7,8 @@
      *  Check third party uid and type status
      */
     
-    $thirdPartyUid = $_GET['thirdPartyUid'];
-    $registerType = $_GET['registerType'];
+    $thirdPartyUid = $_POST['thirdPartyUid'];
+    $registerType = $_POST['registerType'];
     //echo $registerType;
     
     // Use for transfering json data

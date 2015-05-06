@@ -5,8 +5,8 @@
      *  @date 3rd May 2015
      */
     
-    $password = $_GET['password'];
-    $uuid = $_GET['uuid'];
+    $password = $_POST['password'];
+    $uuid = $_POST['uuid'];
     $json_data = "";
     $json_message = "";
     $json_code = "";

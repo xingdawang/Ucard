@@ -7,8 +7,8 @@
      *  Generate a record
      */
     
-    $uuid = $_GET['uuid'];
-    $postcard_confirm_code = $_GET['postcardConfirmCode'];
+    $uuid = $_POST['uuid'];
+    $postcard_confirm_code = $_POST['postcardConfirmCode'];
     
     // Use for transfering json data
     $json_code = '';
@@ -21,14 +21,15 @@
     $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_confirm_code'";
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
+
     if($number == 1){
         
-        // Changing 
+        // Changing sending state
         $tbl_name = "record";
         $sql = "UPDATE $tbl_name SET sending_state = 2 WHERE postcard_uid = '$postcard_confirm_code'";
         $result = mysql_query($sql);
         
-        // Generate friend record
+        // Get postcard sender id
         $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_confirm_code'";
         $result = mysql_query($sql);
         $row = mysql_fetch_array($result);

@@ -14,21 +14,21 @@
     
     // Get data from the form
     // Post method
-    $uuid = $_GET['uuid'];
-    $nickname = $_GET['nickname'];
-    $firstName = $_GET['firstName'];
-    $middleName = $_GET['middleName'];
-    $lastName = $_GET['lastName'];
-    $houseNumber = $_GET['houseNumber'];
-    $street = $_GET['street'];
-    $city = $_GET['city'];
-    $county = $_GET['county'];
-    $postcode = $_GET['postcode'];
-    $registerType = $_GET['registerType'];
-    $thirdPartyUid = $_GET['thirdPartyUid'];
-    $dateOfBirth = $_GET['dateOfBirth'];   // need time validation
-    $sex = $_GET['sex'];
-    $country = $_GET['country'];
+    $uuid = $_POST['uuid'];
+    $nickname = $_POST['nickname'];
+    $firstName = $_POST['firstName'];
+    $middleName = $_POST['middleName'];
+    $lastName = $_POST['lastName'];
+    $houseNumber = $_POST['houseNumber'];
+    $street = $_POST['street'];
+    $city = $_POST['city'];
+    $county = $_POST['county'];
+    $postcode = $_POST['postcode'];
+    $registerType = $_POST['registerType'];
+    $thirdPartyUid = $_POST['thirdPartyUid'];
+    $dateOfBirth = $_POST['dateOfBirth'];   // need time validation
+    $sex = $_POST['sex'];
+    $country = $_POST['country'];
 
     // To protect MySQL injection (more detail about MySQL injection)
     $firstName = stripslashes($firstName);
@@ -56,30 +56,17 @@
     $number = mysql_num_rows($result);
     
     if($number == 1){
-        
-        //User nickname is unique
-        $tbl_name = "userinfo";
-        $sql = "SELECT * FROM $tbl_name WHERE user_nickname = $nickname";
-        $result_nickname = mysql_query($sql);
-        $number_nickname = mysql_num_rows($result_nickname);
-        if($number_nickname == 0) {
-            //echo $number_nickname;
-            $sql = "UPDATE $tbl_name SET user_nickname = $nickname WHERE uuid = '$uuid'";
-            mysql_query($sql);
-        } else {
-            $json_code = 8;
-            $json_message = "Nickname is exist, other info can be updated";    
-        }
-        
         // Sex 0 for girl, 1 for boy
         if($sex == "girl")
             $sex = 0;           //girl
         else
             $sex = 1;           //boy
+        $tbl_name = "userinfo";
         $sql = "UPDATE $tbl_name SET sex = $sex WHERE uuid = '$uuid'";
         mysql_query($sql);
 
         // Update other info except nickname, sex
+        if($nickname != "") writeToDatabase('user_nickname', $nickname, $uuid);
         if($firstName != "") writeToDatabase('first_name', $firstName, $uuid);
         if($lastName != "") writeToDatabase('last_name', $lastName, $uuid);
         if($middleName != "") writeToDatabase('middle_name', $middleName, $uuid);

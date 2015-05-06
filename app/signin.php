@@ -13,8 +13,8 @@
     //$nicknameOrEmail=$_POST['nicknameOrEmail'];
     //$password=$_POST['password'];
     // Get Method
-    $email = $_GET['email'];
-    $password=$_GET['password'];
+    $email = $_POST['email'];
+    $password=$_POST['password'];
 
     $password = md5(md5($password));
     //echo $password;

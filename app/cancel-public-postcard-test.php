@@ -7,7 +7,7 @@
 
 <body>
 
-    <form action="cancel-public-postcard.php" method="get">            
+    <form action="cancel-public-postcard.php" method="post">            
 	    Postcard ID: <input type="text" name="postcardID"><br>
 	    <input type="submit">
     </form>

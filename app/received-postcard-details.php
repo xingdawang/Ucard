@@ -5,7 +5,7 @@
      *  @date 4th May 2015
      */
     
-    $postcard_uid = $_GET['postcardID'];
+    $postcard_uid = $_POST['postcardID'];
     $json_data = "";
     $json_message = "";
     $json_code = "";

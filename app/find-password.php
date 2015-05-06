@@ -7,7 +7,7 @@
      *  After third party register, if user does not have the nickname, add one
      */
     
-    $user_email = $_GET['email'];
+    $user_email = $_POST['email'];
     
     // Use for transfering json data
     $json_code = '';

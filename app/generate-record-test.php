@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <form action="generate-record.php" method="get">
+    <form action="generate-record.php" method="post">
         Uuid <input type="text" name="uuid"> <br>
         Postcard id <input type="text" name="postId"> <br>
         Payment type <input type="text" name="paymentType"> <br>

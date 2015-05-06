@@ -7,7 +7,7 @@
 
 <body>
 
-    <form action="change-password.php" method="get" onsubmit="return checkForm(this);">
+    <form action="change-password.php" method="post" onsubmit="return checkForm(this);">
         <hr>
             Uuid: <input type="text" name="uuid"><br>
 	    Password: <input type="password" name="password"><br>

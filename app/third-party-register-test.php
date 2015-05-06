@@ -6,7 +6,7 @@
 </head>
 
 <body>
-    <form action="third-party-register.php" method="get">
+    <form action="third-party-register.php" method="post">
         <hr>
             Register type: <input type="text" name="registerType"><br>
 	    Third party id: <input type="text" name="thirdPartyUid"><br>

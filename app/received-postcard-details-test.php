@@ -7,7 +7,7 @@
 
 <body>
 
-    <form action="received-postcard-details.php" method="get">            
+    <form action="received-postcard-details.php" method="post">            
 	    Postcard ID: <input type="text" name="postcardID"><br>
 	    <input type="submit">
     </form>

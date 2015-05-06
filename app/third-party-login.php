@@ -7,8 +7,8 @@
      *  Third party login
      */
     
-    $thirdPartyUid = $_GET['thirdPartyUid'];
-    $registerType = $_GET['registerType'];
+    $thirdPartyUid = $_POST['thirdPartyUid'];
+    $registerType = $_POST['registerType'];
     
     // Use for transfering json data
     $json_code = '';

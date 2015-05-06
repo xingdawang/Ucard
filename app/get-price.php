@@ -7,8 +7,8 @@
      *  Return price based on different country
      */
     
-    $original_country = $_GET['originalCountry'];
-    $destination_country = $_GET['destinationCountry'];
+    $original_country = $_POST['originalCountry'];
+    $destination_country = $_POST['destinationCountry'];
     
     // Use for transfering json data
     $json_code = '';

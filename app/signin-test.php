@@ -7,7 +7,7 @@
 
 <body>
 
-    <form action="signin.php" method="get">
+    <form action="signin.php" method="post">
             Email<input type="text" name="email" required><br>
 	    Password: <input type="password" name="password" required> <br>
 	    <input type="submit">
