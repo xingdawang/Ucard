@@ -18,52 +18,93 @@
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
     
+    // Check whether ths postcard is exist
     if($number == 1) {
         
-        // If this postcard is not confirmed received, return postcard details
+        // Check whether there is a record on this postcard id
         $tbl_name = "record";
-        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid' AND postcard_uid = '$postcard_uid' AND sending_state = 2";
+        $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
         $result = mysql_query($sql);
         $number = mysql_num_rows($result);
         
-        if($number == 1) {
-        
-            //fetch this postcard details
-            $tbl_name = "postcard";
-            $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
+        if($number !== 0) {
+            
+            // Check whether this postcard is paid
+            $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid' AND payment_state = 1";
             $result = mysql_query($sql);
-            $row = mysql_fetch_array($result);
-            $json_data['sender_id'] = $row['uuid'];
-            $json_data['postcard_head'] = $row['postcard_head'];
-            $json_data['postcard_back'] = $row['postcard_back'];
-            $json_data['postcard_greeting'] = $row['postcard_greeting'];
-            $json_data['receiver_house_number'] = $row['receiver_house_number'];
-            $json_data['receiver_street'] = $row['receiver_street'];
-            $json_data['receiver_city'] = $row['receiver_city'];
-            $json_data['receiver_county'] = $row['receiver_county'];
-            $json_data['receiver_postcode'] = $row['receiver_postcode'];
-            $json_data['receiver_country'] = $row['receiver_country'];
-            $json_data['postcard_making_time'] = $row['postcard_making_time'];
-            $json_data['postcard_location'] = $row['postcard_location'];
-            
-             // Get sender photo image and nickname in userinfo table
-            $tbl_name = "userinfo";
-            $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
-            $result_userinfo = mysql_query($sql);
-            $row_receiver = mysql_fetch_array($result_userinfo);
-            $json_data['receiver_image'] = $row_receiver['user_icon'];
-            $json_data['receiver_nickname'] = $row_receiver['user_nickname'];
-            
-            $json_code = 1000;
-            $json_message = "Fetch postcard information succeed"; 
+            $number= mysql_num_rows($result);
+
+            if($number == 1){
+                
+                // Check whether this postcard is confirmed by others
+                $tbl_name = "receiver";
+                $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid' AND uuid = '$uuid'";
+                $result = mysql_query($sql);
+                $number = mysql_num_rows($result);
+                
+                if($number == 0){
+                    
+                    // Check user validation
+                    $tbl_name = "userinfo";
+                    $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
+                    $result = mysql_query($sql);
+                    $number = mysql_num_rows($result);
+                    if($number == 1) {
+                        //fetch this postcard details
+                        $tbl_name = "postcard";
+                        $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
+                        $result = mysql_query($sql);
+                        $row = mysql_fetch_array($result);
+                        $uuid = $row['uuid'];
+                        $json_data['sender_id'] = $row['uuid'];
+                        $json_data['postcard_head'] = $row['postcard_head'];
+                        $json_data['postcard_back'] = $row['postcard_back'];
+                        $json_data['postcard_greeting'] = $row['postcard_greeting'];
+                        $json_data['receiver_house_number'] = $row['receiver_house_number'];
+                        $json_data['receiver_street'] = $row['receiver_street'];
+                        $json_data['receiver_city'] = $row['receiver_city'];
+                        $json_data['receiver_county'] = $row['receiver_county'];
+                        $json_data['receiver_postcode'] = $row['receiver_postcode'];
+                        $json_data['receiver_country'] = $row['receiver_country'];
+                        $json_data['postcard_making_time'] = $row['postcard_making_time'];
+                        $json_data['postcard_location'] = $row['postcard_location'];
+                        
+                        // Get sender photo image and nickname in userinfo table
+                        $tbl_name = "userinfo";
+                        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
+                        $result_userinfo = mysql_query($sql);
+                        $row_receiver = mysql_fetch_array($result_userinfo);
+                        $json_data['sender_image'] = $row_receiver['user_icon'];
+                        $json_data['sender_nickname'] = $row_receiver['user_nickname'];
+                        
+                        // Get sharing state in record table
+                        $tbl_name = "record";
+                        $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
+                        $result_userinfo = mysql_query($sql);
+                        $row_record = mysql_fetch_array($result_userinfo);
+                        $json_data['sharing_state'] = $row_record['sharing_state'];
+                        
+                        $json_code = 1000;
+                        $json_message = "Get postcard information succeed";
+                    } else {
+                        $json_code = 50;
+                        $json_message = "User id is not found";
+                    } 
+                } else {
+                    $json_code = 48;
+                    $json_message = "This postcard is confirmed by other user";
+                }
+            } else {
+                $json_code = 46;
+                $json_message = "This postcard is not paid";
+            }
         } else {
-            $json_code = 38;
-            $json_message = "This user has already confirmed this postcard";
+            $json_code = 49;
+            $json_message = "Postcard id is not found in the record";
         }
-    
     }else {
-        $json_code = 38;
-        $json_message = "Postcard id is not found";
+            $json_code = 38;
+            $json_message = "Postcard id is not found";
     }
     mysql_close();
     
