@@ -50,9 +50,15 @@
                     $result = mysql_query($sql);
                     $number = mysql_num_rows($result);
                     if($number == 1) {
+                        
                         //fetch this postcard details
                         $tbl_name = "postcard";
-                        $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
+                        $tbl_name1 = "userinfo";
+                        $tbl_name2 = "record";
+                        $sql = "SELECT * FROM $tbl_name
+                        LEFT JOIN $tbl_name1 ON $tbl_name.uuid = $tbl_name1.uuid
+                        LEFT JOIN $tbl_name2 ON $tbl_name.uuid = $tbl_name2.uuid
+                        WHERE $tbl_name.postcard_uid = '$postcard_uid' AND $tbl_name2.uuid = '$uuid' AND $tbl_name2.payment_state = 1";
                         $result = mysql_query($sql);
                         $row = mysql_fetch_array($result);
                         $uuid = $row['uuid'];
@@ -68,22 +74,8 @@
                         $json_data['receiver_country'] = $row['receiver_country'];
                         $json_data['postcard_making_time'] = $row['postcard_making_time'];
                         $json_data['postcard_location'] = $row['postcard_location'];
-                        
-                        // Get sender photo image and nickname in userinfo table
-                        $tbl_name = "userinfo";
-                        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
-                        $result_userinfo = mysql_query($sql);
-                        $row_receiver = mysql_fetch_array($result_userinfo);
-                        $json_data['sender_image'] = $row_receiver['user_icon'];
-                        $json_data['sender_nickname'] = $row_receiver['user_nickname'];
-                        
-                        // Get sharing state in record table
-                        $tbl_name = "record";
-                        $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
-                        $result_userinfo = mysql_query($sql);
-                        $row_record = mysql_fetch_array($result_userinfo);
-                        $json_data['sharing_state'] = $row_record['sharing_state'];
-                        
+                        $json_data['sender_image'] = $row['user_icon'];
+                        $json_data['sender_nickname'] = $row['user_nickname'];
                         $json_code = 1000;
                         $json_message = "Get postcard information succeed";
                     } else {
@@ -110,5 +102,4 @@
     
     $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data);
     die(json_encode($array));
-
 ?>

@@ -20,16 +20,16 @@
     
     // Check whether this user is exist
     if($number == 1) {
-        $tbl_name = "record";
-        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
+	
+	$tbl_name = "postcard";
+        $tbl_name1 = "record";
+        $sql = "SELECT * FROM $tbl_name LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
+	WHERE $tbl_name1.uuid = '$uuid'";
         $result = mysql_query($sql);
 	$number_postcard = mysql_num_rows($result);
 	
 	// Check whether this user has post a postcard
-	if($number_postcard == 0){
-	    $json_code = 45;
-	    $json_message = "This user has not posted a postcard ";
-	} else{
+	if($number_postcard != 0){
 	    while($row = mysql_fetch_array($result)){;
 		
 		// Get postcard head image
@@ -44,7 +44,10 @@
 		);
 	    }
 	    $json_code = 1000;
-	    $json_message = "Sending list returned";   
+	    $json_message = "Sending list returned";
+	} else{
+	    $json_code = 45;
+	    $json_message = "This user has not posted a postcard ";
 	}
     }else {
         $json_code = 28;

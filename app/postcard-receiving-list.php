@@ -19,20 +19,16 @@
     $number = mysql_num_rows($result);
     
     if($number == 1) {
-        $tbl_name = "receiver";
-        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
+        $tbl_name1 = "receiver";
+        $tbl_name = "postcard";
+        $sql = "SELECT * FROM $tbl_name LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
+        WHERE $tbl_name1.uuid = '$uuid'";
         $result = mysql_query($sql);
         $number = mysql_num_rows($result);
         $json_code = 1000;
         $json_message = "Receiving list returned";
         while($row = mysql_fetch_array($result)){
             
-            // Get postcard head image
-            $tbl_name = "postcard";
-            $postcard_uid = $row['postcard_uid'];
-            $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
-            $result_postcard = mysql_query($sql);
-            $postcardFrontImage = mysql_fetch_array($result_postcard);
             $json_data_array[] = array(
                 'postcard_id' => $row['postcard_uid'],
                 'postcard_head' => $postcardFrontImage['postcard_head']
