@@ -42,7 +42,7 @@
                 $result = mysql_query($sql);
                 $number = mysql_num_rows($result);
                 
-                if($number == 0){
+                if($number == 1){
                     
                     // Check user validation
                     $tbl_name = "userinfo";
@@ -53,12 +53,14 @@
                         
                         //fetch this postcard details
                         $tbl_name = "postcard";
-                        $tbl_name1 = "userinfo";
-                        $tbl_name2 = "record";
+                        $tbl_name1 = "receiver";
+                        $tbl_name2 = "userinfo";
+                        $tbl_name3 = "record";
                         $sql = "SELECT * FROM $tbl_name
-                        LEFT JOIN $tbl_name1 ON $tbl_name.uuid = $tbl_name1.uuid
-                        LEFT JOIN $tbl_name2 ON $tbl_name.uuid = $tbl_name2.uuid
-                        WHERE $tbl_name.postcard_uid = '$postcard_uid' AND $tbl_name2.uuid = '$uuid' AND $tbl_name2.payment_state = 1";
+                        LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
+                        LEFT JOIN $tbl_name2 ON $tbl_name1.uuid = $tbl_name2.uuid
+                        LEFT JOIN $tbl_name3 ON $tbl_name.postcard_uid = $tbl_name3.postcard_uid
+                        WHERE $tbl_name.postcard_uid = '$postcard_uid' AND $tbl_name1.uuid = '$uuid' AND $tbl_name3.payment_state = 1";
                         $result = mysql_query($sql);
                         $row = mysql_fetch_array($result);
                         $uuid = $row['uuid'];
@@ -74,8 +76,8 @@
                         $json_data['receiver_country'] = $row['receiver_country'];
                         $json_data['postcard_making_time'] = $row['postcard_making_time'];
                         $json_data['postcard_location'] = $row['postcard_location'];
-                        $json_data['sender_image'] = $row['user_icon'];
-                        $json_data['sender_nickname'] = $row['user_nickname'];
+                        $json_data['receiver_icon'] = $row['user_icon'];
+                        $json_data['receiver_nickname'] = $row['user_nickname'];
                         $json_code = 1000;
                         $json_message = "Get postcard information succeed";
                     } else {
@@ -84,7 +86,7 @@
                     } 
                 } else {
                     $json_code = 48;
-                    $json_message = "This postcard is confirmed by other user";
+                    $json_message = "This postcard is not confirmed yet";
                 }
             } else {
                 $json_code = 46;

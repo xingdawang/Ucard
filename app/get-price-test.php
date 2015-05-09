@@ -23,6 +23,7 @@
                 <option value="GB">England</option>
                 <option value="XX">Other country</option>
             </select>
+	    Payment type: <input type="text" name="paymentType">
 	    <input type="submit">
         <hr>
     </form>

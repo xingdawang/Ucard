@@ -29,7 +29,9 @@
     
     // Upload postcard two sides
     // Generate photo path and name
-    $postcardName = $uuid . time() . generateRandomString().".png";//jpg
+    $random_string = generateRandomString();
+    $time = time();
+    $postcardName = $uuid . $time . $random_string .".png";//jpg
     $frontFolder = "../postcard-front/".$postcardName;
     $backFolder = "../postcard-back/".$postcardName;
             
@@ -52,9 +54,55 @@
         
         if($widthFront == $widthBack && $widthFront == "1748" && $heightFront == $heightBack && $heightFront == "1240") {
             
+            // Generate head image snail image
+            $img = imagecreatefrompng($_FILES['postcardFront']['tmp_name']);
+
+            // set thumbnail size
+            $new_width = "320";
+            $new_height = "227";
+            
+            // get privous image size
+            $size = GetImageSize($_FILES['postcardFront']['tmp_name']);
+            $previous_icon_width = $size[0];
+            $previous_icon_height = $size[1];
+          
+            // create a new temporary image $tep_img is the canvas, $img is the old image
+            $tmp_img = imagecreatetruecolor( $new_width, $new_height );
+            
+            // copy and resize old image into new image 
+            imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $previous_icon_width, $previous_icon_height);
+            
+            // save thumbnail into a file
+            $new_image_url = "../postcard-front/".$uuid. $time. $random_string. "-small.png";
+            imagepng($tmp_img, $new_image_url);
+            
+            
+            // Generate back image snail image
+            $img = imagecreatefrompng($_FILES['postcardBack']['tmp_name']);
+
+            // set thumbnail size
+            $new_width = "320";
+            $new_height = "227";
+            
+            // get privous image size
+            $size = GetImageSize($_FILES['postcardBack']['tmp_name']);
+            $previous_icon_width = $size[0];
+            $previous_icon_height = $size[1];
+          
+            // create a new temporary image $tep_img is the canvas, $img is the old image
+            $tmp_img = imagecreatetruecolor( $new_width, $new_height );
+            
+            // copy and resize old image into new image 
+            imagecopyresized( $tmp_img, $img, 0, 0, 0, 0, $new_width, $new_height, $previous_icon_width, $previous_icon_height);
+            
+            // save thumbnail into a file
+            $new_image_url = "../postcard-back/".$uuid. $time. $random_string. "-small.png";
+            imagepng($tmp_img, $new_image_url);
+            
+            
+            // Upload images to the given folder !!!IMPORTANT!!! Do not put this operation before thumb operation
             move_uploaded_file($_FILES['postcardFront']['tmp_name'], $frontFolder);
             move_uploaded_file($_FILES['postcardBack']['tmp_name'], $backFolder);
-            //echo "Update succeed";
             
             // Connect to database
             include "connectDB.php";
