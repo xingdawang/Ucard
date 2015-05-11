@@ -13,11 +13,11 @@
     
     // Connect to server and select databse.
     include"connectDB.php";
-    $tbl_name="postcard"; // Table name
+    $tbl_name="postcard";
     $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
-    
+
     // Check whether ths postcard is exist
     if($number == 1) {
         
@@ -42,7 +42,7 @@
                 $result = mysql_query($sql);
                 $number = mysql_num_rows($result);
                 
-                if($number == 1){
+                if($number == 0){
                     
                     // Check user validation
                     $tbl_name = "userinfo";
@@ -54,16 +54,15 @@
                         //fetch this postcard details
                         $tbl_name = "postcard";
                         $tbl_name1 = "receiver";
-                        $tbl_name2 = "userinfo";
                         $tbl_name3 = "record";
-                        $sql = "SELECT * FROM $tbl_name
+                        $sql = "SELECT *
+                        FROM $tbl_name
                         LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
-                        LEFT JOIN $tbl_name2 ON $tbl_name1.uuid = $tbl_name2.uuid
                         LEFT JOIN $tbl_name3 ON $tbl_name.postcard_uid = $tbl_name3.postcard_uid
-                        WHERE $tbl_name.postcard_uid = '$postcard_uid' AND $tbl_name1.uuid = '$uuid' AND $tbl_name3.payment_state = 1";
-                        $result = mysql_query($sql);
-                        $row = mysql_fetch_array($result);
-                        $uuid = $row['uuid'];
+                        WHERE $tbl_name.postcard_uid = '$postcard_uid' AND $tbl_name3.payment_state = 1";
+                        $result_postcard = mysql_query($sql);
+                        $row = mysql_fetch_array($result_postcard);
+                        $record_id = $row['record_uid'];
                         $json_data['sender_id'] = $row['uuid'];
                         $json_data['postcard_head'] = $row['postcard_head'];
                         $json_data['postcard_back'] = $row['postcard_back'];
@@ -76,17 +75,24 @@
                         $json_data['receiver_country'] = $row['receiver_country'];
                         $json_data['postcard_making_time'] = $row['postcard_making_time'];
                         $json_data['postcard_location'] = $row['postcard_location'];
+                        
+                        // Check receiver using the given id
+                        $tbl_name = "userinfo";
+                        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
+                        $result = mysql_query($sql);
+                        $row = mysql_fetch_array($result);
+                        $receiver = $row['uuid'];      // RECEIVER
                         $json_data['receiver_icon'] = $row['user_icon'];
                         $json_data['receiver_nickname'] = $row['user_nickname'];
                         $json_code = 1000;
-                        $json_message = "Get postcard information succeed";
+                        $json_message = "Get postcard information succeed";            
                     } else {
                         $json_code = 50;
                         $json_message = "User id is not found";
                     } 
                 } else {
                     $json_code = 48;
-                    $json_message = "This postcard is not confirmed yet";
+                    $json_message = "This postcard is confirmed by others";
                 }
             } else {
                 $json_code = 46;

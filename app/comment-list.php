@@ -14,15 +14,20 @@
     include"connectDB.php";
     $tbl_name = "comment";
     $tbl_name1 = "userinfo";
-    $sql = "SELECT * FROM $tbl_name
+    $sql = "SELECT *,
+    $tbl_name.uuid AS comment_uuid,
+    $tbl_name.postcard_uid AS comment_postcard_uid,
+    $tbl_name.comment_content AS content
+    FROM $tbl_name
     LEFT JOIN $tbl_name1 ON $tbl_name.uuid = $tbl_name1.uuid
-    WHERE postcard_uid = '$postcard_uid'";
+    WHERE $tbl_name.postcard_uid = '$postcard_uid'";
     $result = mysql_query($sql);
-    while($row = mysql_fetch_array($result)) {
-        $json_data_array[] = array(
-            'postcard_uid' => $row['postcard_uid'],
-            'uuid' => $row['uuid'],
-            'comment' => $row['comment_content'],
+
+    while($row = mysql_fetch_array($result)){
+        $json_data[] = array(
+            'postcard_uid' => $row['comment_postcard_uid'],
+            'uuid' => $row['comment_uuid'],
+            'comment' => utf8_encode($row['content']),
             'time' => $row['comment_time'],
             'user_nickname' => $row['user_nickname'],
             'user_icon' => $row['user_icon']
@@ -32,7 +37,6 @@
     $json_code = 1000;
     $json_message = "Comment list get succeed";
     
-    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data_array);
+    $array = Array('code'=>$json_code, 'message'=>$json_message, 'data'=>$json_data);
     die(json_encode($array));
-
 ?>
