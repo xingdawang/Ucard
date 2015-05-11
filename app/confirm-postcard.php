@@ -61,7 +61,7 @@
                 $json_data = '';
                 $json_message = 'Sending state changed, receiver record generated, friend record generation succeed';
             } else {
-                $json_code = 32;
+                $json_code = 1000;
                 $json_data = '';
                 $json_message = 'Sending state changed, receiver record generated, friend generation failed, friend record has exist'; 
             }

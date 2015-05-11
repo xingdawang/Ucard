@@ -20,14 +20,15 @@
     $tbl_name.comment_content AS content
     FROM $tbl_name
     LEFT JOIN $tbl_name1 ON $tbl_name.uuid = $tbl_name1.uuid
-    WHERE $tbl_name.postcard_uid = '$postcard_uid'";
+    WHERE $tbl_name.postcard_uid = '$postcard_uid'
+    ORDER BY $tbl_name.comment_time DESC";
     $result = mysql_query($sql);
 
     while($row = mysql_fetch_array($result)){
         $json_data[] = array(
             'postcard_uid' => $row['comment_postcard_uid'],
             'uuid' => $row['comment_uuid'],
-            'comment' => utf8_encode($row['content']),
+            'comment' => $row['content'],
             'time' => $row['comment_time'],
             'user_nickname' => $row['user_nickname'],
             'user_icon' => $row['user_icon']

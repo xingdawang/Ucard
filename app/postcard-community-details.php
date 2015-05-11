@@ -12,7 +12,7 @@
     // Connect to server and select databse.
     include"connectDB.php";
     $tbl_name = "postcard";
-    $tbl_name2 = "comment";
+    $tbl_name2 = "story";
     $tbl_name3 = "record";
     $tbl_name4 = "receiver";
     $tbl_name5 = "userinfo";
@@ -28,15 +28,22 @@
     
     $result = mysql_query($sql);
     if(mysql_num_rows($result) == 1) {
+        
+        // Get each postcard comment number
+        $tbl_name = "comment";
+        $sql_comment = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
+        $result_comment = mysql_query($sql_comment);
+        $comment_number = mysql_num_rows($result_comment);
+        
         $row = mysql_fetch_array($result);
         $json_data['original_country'] = $row['original_country'];
         $json_data['destination_country'] = $row['destination_country'];
-        $json_data['like_number'] = $row['like_number'];
+        $json_data['like_number'] = ($row['like_number'] == "" ? 0 :$row['like_number']);
         $json_data['postcard_head'] = $row['postcard_head'];
         $json_data['postcard_making_time'] = $row['postcard_making_time'];
         $json_data['user_icon'] = $row['user_icon'];
         $json_data['user_nickname'] = $row['user_nickname'];
-        $json_data['user_icon'] = $row['user_icon'];
+        $json_data['comment_number'] = $comment_number;
         $json_code = 1000;
         $json_message = "Get postcard community details succeed";
         

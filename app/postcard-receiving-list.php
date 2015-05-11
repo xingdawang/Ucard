@@ -31,7 +31,7 @@
             
             $json_data_array[] = array(
                 'postcard_id' => $row['postcard_uid'],
-                'postcard_head' => $postcardFrontImage['postcard_head']
+                'postcard_head' => $row['postcard_head']
             );
         }
     }else {
