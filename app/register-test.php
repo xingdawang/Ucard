@@ -1,5 +1,5 @@
 <!doctype html>
-
+<meta charset="utf-8" /> 
 <html lang="en">
 <head>
     <title>Sign up</title>
