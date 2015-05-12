@@ -12,12 +12,14 @@
     // Connect to server and select databse.
     include"connectDB.php";
     $tbl_name = "postcard";
+    $tbl_name1 = "story";
     $tbl_name3 = "record";
     $tbl_name4 = "receiver";
     $tbl_name5 = "userinfo";
     $sql = "SELECT *,
     $tbl_name4.uuid AS receiver_uid
     FROM $tbl_name
+    LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
     LEFT JOIN $tbl_name3 ON $tbl_name.postcard_uid = $tbl_name3.postcard_uid
     LEFT JOIN $tbl_name4 ON $tbl_name.postcard_uid = $tbl_name4.postcard_uid
     LEFT JOIN $tbl_name5 ON $tbl_name4.uuid = $tbl_name5.uuid

@@ -53,13 +53,11 @@
                         
                         //fetch this postcard details
                         $tbl_name = "postcard";
-                        $tbl_name1 = "receiver";
                         $tbl_name2 = "userinfo";
                         $tbl_name3 = "record";
                         $sql = "SELECT *
                         FROM $tbl_name
-                        LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
-                        LEFT JOIN $tbl_name2 ON $tbl_name2.uuid = $tbl_name1.uuid
+                        LEFT JOIN $tbl_name2 ON $tbl_name2.uuid = $tbl_name.uuid
                         LEFT JOIN $tbl_name3 ON $tbl_name.postcard_uid = $tbl_name3.postcard_uid
                         WHERE $tbl_name.postcard_uid = '$postcard_uid' AND $tbl_name3.payment_state = 1";
                         $result_postcard = mysql_query($sql);
@@ -81,8 +79,8 @@
                         $json_data['postcard_location'] = $row['postcard_location'];
                         
                         // Check receiver using the given id
-                        $tbl_name = "userinfo";
-                        $sql = "SELECT * FROM $tbl_name WHERE uuid = '$uuid'";
+                        $tbl_name = "receiver";
+                        $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
                         $result = mysql_query($sql);
                         $row = mysql_fetch_array($result);
                         $receiver = $row['uuid'];      // RECEIVER

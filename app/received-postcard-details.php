@@ -26,11 +26,16 @@
         //get this postcard details
         $tbl_name = "postcard";
         $tbl_name1 = "record";
-        $sql = "SELECT * FROM $tbl_name LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
+        $tbl_name2 = "userinfo";
+        $sql = "SELECT * FROM $tbl_name
+        LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
+        LEFT JOIN $tbl_name2 ON $tbl_name2.uuid = $tbl_name1.uuid
         WHERE $tbl_name.postcard_uid = '$postcard_uid'";
         $result = mysql_query($sql);
         $row = mysql_fetch_array($result);
         $json_data['sender_id'] = $row['uuid'];
+        $json_data['sender_nickname'] = $row['user_nickname'];
+        $json_data['sender_icon'] = $row['user_icon'];
         $json_data['postcard_head'] = $row['postcard_head'];
         $json_data['postcard_back'] = $row['postcard_back'];
         $json_data['postcard_greeting'] = $row['postcard_greeting'];
