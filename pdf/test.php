@@ -40,10 +40,10 @@ $pdf -> DefOrientation = "landscape";
 
 $pdf->AliasNbPages();
 $pdf->AddPage("landscape","a6");                                // need A6 parameters, search "letter" in fpdf.php
-$pdf ->Image('../Images/5552882337abd1432151354DDeT5.png.png',0,0,-300); // need 775 privilage
+$pdf ->Image('../postcard-front/5552882337abd1432151354DDeT5.png',0,0,-300); // need 775 privilage
 $pdf->AliasNbPages();
 $pdf->AddPage("landscape","a6");
-$pdf ->Image('../Images/5552882337abd1432151354DDeT5.png.png',0,0,-300);
+$pdf ->Image('../postcard-back/5552882337abd1432151354DDeT5.png',0,0,-300);
 /*$pdf->SetFont('Times','',12);
 for($i=1;$i<=40;$i++)
     $pdf->Cell(0,10,'Printing line number '.$i,0,1);
