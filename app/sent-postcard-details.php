@@ -16,11 +16,11 @@
     $tbl_name1 = "record";
     $sql = "SELECT * FROM $tbl_name
     LEFT JOIN $tbl_name1 ON $tbl_name1.postcard_uid = $tbl_name.postcard_uid
-    WHERE $tbl_name.postcard_uid = '$postcard_uid'";
+    WHERE $tbl_name.postcard_uid = '$postcard_uid' AND $tbl_name1.payment_state = 1";
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
     $row = mysql_fetch_array($result);
-    
+    //echo $number;
     if($number == 1) {
         
         // Check postcard state
