@@ -23,24 +23,28 @@
 	
 	$tbl_name = "postcard";
         $tbl_name1 = "record";
-        $sql = "SELECT * FROM $tbl_name LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
+        $sql = "SELECT * FROM $tbl_name
+	LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
 	WHERE $tbl_name1.uuid = '$uuid'";
         $result = mysql_query($sql);
 	$number_postcard = mysql_num_rows($result);
 	
 	// Check whether this user has post a postcard
 	if($number_postcard != 0){
-	    while($row = mysql_fetch_array($result)){;
 		
-		// Get postcard head image
-		$tbl_name = "postcard";
-		$postcard_uid = $row['postcard_uid'];
-		$sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
-		$result_postcard = mysql_query($sql);
-		$postcardFrontImage = mysql_fetch_array($result_postcard);
+	    // Get postcard head image
+	    $tbl_name = "postcard";
+	    $tbl_name1 = "record";
+	    //$postcard_uid = $row['postcard_uid'];
+	    $sql = "SELECT *
+	    FROM $tbl_name
+	    LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
+	    WHERE $tbl_name.uuid = '$uuid' AND $tbl_name1.payment_state = 1";
+	    $result_postcard = mysql_query($sql);
+	    while($row = mysql_fetch_array($result_postcard)) {
 		$json_data_array[] = array(
-		    'postcard_id' => $row['postcard_uid'],
-		    'postcard_head' => $postcardFrontImage['postcard_head']
+		    'postcard_id' => $row[0],
+		    'postcard_head' => $row['postcard_head']
 		);
 	    }
 	    $json_code = 1000;
