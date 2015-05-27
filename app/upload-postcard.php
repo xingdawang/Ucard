@@ -58,8 +58,8 @@
             $img = imagecreatefrompng($_FILES['postcardFront']['tmp_name']);
 
             // set thumbnail size
-            $new_width = "320";
-            $new_height = "227";
+            $new_width = "640";
+            $new_height = "454";
             
             // get privous image size
             $size = GetImageSize($_FILES['postcardFront']['tmp_name']);
@@ -81,8 +81,8 @@
             $img = imagecreatefrompng($_FILES['postcardBack']['tmp_name']);
 
             // set thumbnail size
-            $new_width = "320";
-            $new_height = "227";
+            $new_width = "640";
+            $new_height = "454";
             
             // get privous image size
             $size = GetImageSize($_FILES['postcardBack']['tmp_name']);
