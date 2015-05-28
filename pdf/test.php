@@ -9,7 +9,7 @@ function Header()
 {
     // Logo
     //$this->Image('../Images/jingwen.jpeg',0,0,320);
-    /*
+    
     // Arial bold 15
     $this->SetFont('Arial','B',15);
     // Move to the right
@@ -29,7 +29,7 @@ function Footer()
     // Arial italic 8
     $this->SetFont('Arial','I',8);
     // Page number
-    $this->Cell(0,10,'Page '.$this->PageNo().'/{nb}',0,0,'C');
+    $this->Cell(1000,10,'this is a test',0,0,'C');
 }
 */
 }
@@ -43,7 +43,14 @@ $pdf->AddPage("landscape","a6");                                // need A6 param
 $pdf ->Image('../postcard-front/5552882337abd1432151354DDeT5.png',0,0,-300); // need 775 privilage
 $pdf->AliasNbPages();
 $pdf->AddPage("landscape","a6");
-$pdf ->Image('../postcard-back/5552882337abd1432151354DDeT5.png',0,0,-300);
+$pdf ->Image('../postcard-back/3-upload-back.png',0,0,-300);
+
+$pdf->SetTextColor(170,170,170);
+$pdf->SetFont('Arial','',10);
+$pdf->Cell(82, 176, '', 0);
+$pdf->Cell(20, 176, 'hi2', 0);
+$pdf->SetTextColor(200,200,200);
+
 /*$pdf->SetFont('Times','',12);
 for($i=1;$i<=40;$i++)
     $pdf->Cell(0,10,'Printing line number '.$i,0,1);

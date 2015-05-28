@@ -27,13 +27,15 @@
             #####################################
             echo "<hr>";
             echo $i++."<br>";
-            echo "祝福:".$row['postcard_greeting']."<br>";
+            echo "明信片ID: ".$row['postcard_uid']."<br>";
+            echo "祝福: ".$row['postcard_greeting']."<br>";
             echo "制作时间: ". $row['postcard_making_time']."<br>";
             ?>
             <form action="Backend_process.php" method="post">
                 <input type="hidden" name="photo_head_url" value="<?php echo $row['postcard_head']; ?>">
                 <input type="hidden" name="photo_back_url" value="<?php echo $row['postcard_back']; ?>">
                 <input type="hidden" name="postcard_making_time" value="<?php echo $row['postcard_making_time']; ?>">
+                <input type="hidden" name="postcard_uid" value="<?php echo $row['postcard_uid']; ?>">
                 <input type="submit">
             </form>
             <?php

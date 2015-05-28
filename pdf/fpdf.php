@@ -610,7 +610,7 @@ function Cell($w, $h=0, $txt='', $border=0, $ln=0, $align='', $fill=false, $link
 			$this->ws = 0;
 			$this->_out('0 Tw');
 		}
-		$this->AddPage($this->CurOrientation,$this->CurPageSize);
+		//$this->AddPage($this->CurOrientation,$this->CurPageSize);     # remore addPage by xingda 
 		$this->x = $x;
 		if($ws>0)
 		{
