@@ -32,10 +32,13 @@
     for($i=1;$i<=40;$i++)
         $pdf->Cell(0,10,'Printing line number '.$i,0,1);
     */
+    /*
     $pdf->SetTextColor(170,170,170);
     $pdf->SetFont('Arial','',10);
     $pdf->Cell(82, 176, '', 0);
     $pdf->Cell(20, 176, 'SN: '.$postcard_uid, 0);
     $pdf->SetTextColor(200,200,200);
+    */
     $pdf->Output($making_time.".pdf","D");
+    
 ?>
