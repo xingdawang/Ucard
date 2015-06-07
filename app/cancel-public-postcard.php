@@ -13,7 +13,7 @@
     // Connect to server and select databse.
     include"connectDB.php";
     $tbl_name="record"; // Table name
-    $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
+    $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid' AND payment_state = 1";
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
     
