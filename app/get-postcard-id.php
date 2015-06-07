@@ -8,10 +8,11 @@
      */
     
     $postcard_uid = uniqid();
+    $uuid = $_POST['uuid'];
     // Connect to database
     include "connectDB.php";
     $tbl_name = "postcard";
-    $sql = "INSERT INTO $tbl_name (postcard_uid) VALUES ('$postcard_uid')";
+    $sql = "INSERT INTO $tbl_name (postcard_uid, uuid) VALUES ('$postcard_uid', '$uuid')";
     mysql_query($sql);
     mysql_close();
     $json_code = 1000;
