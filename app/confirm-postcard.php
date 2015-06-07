@@ -22,7 +22,7 @@
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
 
-    if($number == 1){
+    if($number >= 1){
         
         // Changing sending state
         $tbl_name = "record";
