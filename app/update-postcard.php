@@ -116,7 +116,8 @@
             receiver_postcode = '$postcode',
             receiver_country = '$country',
             postcard_location = '$postcard_location',
-            postcard_confirm_code = '$postcard_uid'
+            postcard_confirm_code = '$postcard_uid',
+            postcard_making_time = now()
             WHERE postcard_uid = '$postcard_uid'
             ";
             mysql_query($sql);
