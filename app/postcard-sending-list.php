@@ -39,7 +39,8 @@
 	    $sql = "SELECT *
 	    FROM $tbl_name
 	    LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
-	    WHERE $tbl_name.uuid = '$uuid' AND $tbl_name1.payment_state = 1";
+	    WHERE $tbl_name.uuid = '$uuid' AND $tbl_name1.payment_state = 1
+	    ORDER BY $tbl_name.postcard_making_time DESC";
 	    $result_postcard = mysql_query($sql);
 	    while($row = mysql_fetch_array($result_postcard)) {
 		$json_data_array[] = array(
