@@ -17,7 +17,7 @@
     $result = mysql_query($sql);
     $number = mysql_num_rows($result);
     
-    if($number == 1) {
+    if($number >= 1) {
         
         // Check postcard publication state
         $row = mysql_fetch_array($result);
