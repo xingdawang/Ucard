@@ -24,7 +24,7 @@
     LEFT JOIN $tbl_name4 ON $tbl_name.postcard_uid = $tbl_name4.postcard_uid
     LEFT JOIN $tbl_name5 ON $tbl_name4.uuid = $tbl_name5.uuid
     WHERE $tbl_name3.sharing_state = 2
-    GROUP BY $tbl_name.postcard_uid";
+    GROUP BY $tbl_name.postcard_uid DESC";
     $result = mysql_query($sql);
     
     while($row = mysql_fetch_array($result)) {
