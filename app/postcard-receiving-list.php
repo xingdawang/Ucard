@@ -22,7 +22,8 @@
         $tbl_name1 = "receiver";
         $tbl_name = "postcard";
         $sql = "SELECT * FROM $tbl_name LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
-        WHERE $tbl_name1.uuid = '$uuid'";
+        WHERE $tbl_name1.uuid = '$uuid'
+        ORDER BY $tbl_name.postcard_making_time DESC";
         $result = mysql_query($sql);
         $number = mysql_num_rows($result);
         $json_code = 1000;
