@@ -20,6 +20,9 @@
     if($number >= 1) {
         
         // Check postcard publication state
+        $tbl_name="record"; // Table name
+        $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid' AND sharing_state = 2";
+        $result = mysql_query($sql);
         $row = mysql_fetch_array($result);
         if($row['sharing_state'] == 2){
             
