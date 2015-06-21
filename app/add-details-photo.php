@@ -30,7 +30,7 @@
         //Upload image to folder
         $target = "../user-photo-icon/";       //this folder must have 777 privilage
         //$target = $target . basename( $_FILES["imageToUpload"]["name"]);
-        $target = $target.basename($uuid).basename(".jpeg");
+        $target = $target.basename($uuid).time().basename(".jpeg");
         
         $filetype = $_FILES["imageToUpload"]["type"];
         //echo $filetype."<br>";
@@ -90,12 +90,12 @@
                 //image without conpression
                 //move_uploaded_file($_FILES['imageToUpload']['tmp_name'], $target);
                 //echo "Upload user snail icon succeed";
-                $json_code = 1000;
-                $json_message = "Upload user snail icon succeed";
-                $json_data = $target;
                 $tbl_name="userinfo"; // Table name
                 $sql = "UPDATE $tbl_name SET user_icon = '$target' WHERE uuid = '$uuid'";
                 $result = mysql_query($sql);
+                $json_code = 1000;
+                $json_message = "Upload user snail icon succeed";
+                $json_data = $target;
             }     
         }
         
