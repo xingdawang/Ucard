@@ -40,7 +40,7 @@ $pdf -> DefOrientation = "landscape";
 
 $pdf->AliasNbPages();
 $pdf->AddPage("landscape","a6");                                // need A6 parameters, search "letter" in fpdf.php
-$pdf ->Image('../postcard-front/5552882337abd1432151354DDeT5.png',0,0,-300); // need 775 privilage
+$pdf ->Image('../postcard-front/555f5829dfdf51433652863F8FGz.png',0,0,-300); // need 775 privilage
 $pdf->AliasNbPages();
 $pdf->AddPage("landscape","a6");
 $pdf ->Image('../postcard-back/3-upload-back.png',0,0,-300);

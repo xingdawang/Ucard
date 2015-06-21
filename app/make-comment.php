@@ -27,7 +27,7 @@
         $sql = "SELECT * FROM $tbl_name WHERE postcard_uid = '$postcard_uid'";
         $result = mysql_query($sql);
         $number = mysql_num_rows($result);
-        if($number == 1) {
+        if($number >= 1) {
             
             // Check whether this postcard is public
             $tbl_name="record"; // Table name

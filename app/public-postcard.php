@@ -21,7 +21,7 @@
         
         // Change postcard publication state
         $tbl_name = "record";
-        $sql = "UPDATE $tbl_name SET sharing_state = 2 WHERE postcard_uid = '$postcard_uid'";
+        $sql = "UPDATE $tbl_name SET sharing_state = 2 WHERE postcard_uid = '$postcard_uid' AND payment_state = 1";
         $result = mysql_query($sql);
         $json_code = 1000;
         $json_message = "Sharing state changed succeed";

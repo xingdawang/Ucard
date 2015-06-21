@@ -30,7 +30,7 @@
         $sql = "SELECT * FROM $tbl_name
         LEFT JOIN $tbl_name1 ON $tbl_name.postcard_uid = $tbl_name1.postcard_uid
         LEFT JOIN $tbl_name2 ON $tbl_name2.uuid = $tbl_name1.uuid
-        WHERE $tbl_name.postcard_uid = '$postcard_uid'";
+        WHERE $tbl_name.postcard_uid = '$postcard_uid' AND $tbl_name1.payment_state = 1";
         $result = mysql_query($sql);
         $row = mysql_fetch_array($result);
         $json_data['sender_id'] = $row['uuid'];
