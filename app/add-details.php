@@ -75,7 +75,7 @@
         if($city != "") writeToDatabase('city', $city, $uuid);
         if($county != "") writeToDatabase('county', $county, $uuid);
         if($country != "") writeToDatabase('country', $country, $uuid);
-        if($postcode != "") writeToDatabase('postcode', $postcode, $uuid);
+        writeToDatabase('postcode', $postcode, $uuid);
         if($registerType != "") writeToDatabase('register_type', $registerType, $uuid);
         if($thirdPartyUid != "") writeToDatabase('third_party_uid', $thirdPartyUid, $uuid);
         if($dateOfBirth != "") writeToDatabase("date_of_birth", $dateOfBirth, $uuid);
