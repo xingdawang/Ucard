@@ -13,7 +13,7 @@
     $db_name="ucard"; // Database name
     
     mysql_connect("$db_host", "$db_username", "$db_password")or die("cannot connect");
-    mysql_query("SET NAMES 'UTF8'");
+    mysql_query("SET NAMES 'UTF8MB4'");
     mysql_select_db("$db_name")or die("cannot select DB");
 
 ?>
