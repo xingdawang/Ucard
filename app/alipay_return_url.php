@@ -22,12 +22,6 @@
     $currency = "RMB";
     $transaction_id = $_POST['out_trade_no'];
     
-    $myfile = fopen("newfile.txt", "w") or die("Unable to open file!");
-    #$txt =$_POST;
-    $txt = $transaction_id;
-    fwrite($myfile, $txt);
-    fclose($myfile);
-    
     $json_code = '';
     $json_message = '';
     $json_data = '';
