@@ -40,6 +40,7 @@
             echo "祝福: ".$row['postcard_greeting']."<br>";
             echo "制作时间: ". $row['postcard_making_time']."<br>";
             echo "消费金额: ".$row['total_price']." ".$row['currency']."<br>";
+            echo "交易方式: ".$row['payment_type']."<br>";
             echo "寄出国家: ".$row['original_country']."<br>";
             echo "目的国家: ".$row['destination_country']."<br>";
             ?>
