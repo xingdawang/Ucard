@@ -26,6 +26,7 @@
 	City <input type="text" name="city" ><br>
 	County <input type="text" name="county" ><br>
 	Postcode <input type="text" name="postcode" ><br>
+	Email <input type="text" name="email" ><br>
 	Register type<input type="text" name="registerType" ><br>
 	Third party uid<input type="text" name="thirdPartyUid" ><br>
 	Date of birth <input type="date" name="dateOfBirth"><br>

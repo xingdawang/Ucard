@@ -29,6 +29,7 @@
     $dateOfBirth = $_POST['dateOfBirth'];   // need time validation
     $sex = $_POST['sex'];
     $country = $_POST['country'];
+    $email = $_POST['email'];
 
     // To protect MySQL injection (more detail about MySQL injection)
     $firstName = stripslashes($firstName);
@@ -44,6 +45,7 @@
     $dateOfBirth = stripslashes($dateOfBirth);
     $sex = stripslashes($sex);
     $country = stripcslashes($country);
+    #$email = stripcslashes($email);
     
     // Connect to database
     include "connectDB.php";
@@ -83,11 +85,25 @@
             $json_code = 1000;
             $json_message = "Update personal information(include nickname)";
         }
+        //Deal with email
+        include "connectDB.php";
+        $row = mysql_fetch_array($result);
+        $tbl_name="userinfo"; // Table name
+        $sql = "SELECT * FROM $tbl_name WHERE email = '$email'";
+        $result = mysql_query($sql);
+        $email_number = mysql_num_rows($result);
+        if ($email !="" && $row['email'] == "" && $email_number == 0) {
+            writeToDatabase("email", $email, $uuid);
+        } else {
+            $json_code = 55;
+            $json_message = "Email updated failed, empty or duplicated email address";
+        }
         
     }else {
         $json_code = 5;
         $json_message = "User id is not found";
     }
+    
     mysql_close();
 
     function writeToDatabase($databaseItem,$varable, $uuid) {
