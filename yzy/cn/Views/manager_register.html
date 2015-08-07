@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员注册</title>
+</head>
+<body>
+<div style="padding-left: 40%">
+    <form action="../Controllers/UserController.php"
+          method="post" onsubmit="return checkForm(this);" enctype="multipart/form-data">
+        <p>管理员注册</p><br>
+        用户名：<input type="text" name="name" required> <font color="red">*</font><br>
+        邮件地址:<input type="email" name="email" required> <font color="red">*</font><br>
+        密码：<input type="password" name="password"required> <font color="red">*</font><br>
+        密码确认：<input type="password" name="passwordConfirm" required><font color="red">*</font><br>
+        国家：<input type="text" name="country"><br>
+        地区：<input type="text" name="district"><br>
+        地址：<input type="text" name="address"><br>
+        邮编：<input type="text" name="postcode"><br>
+        电话：<input type="tel" name="tel"><br>
+        确认码：<input type="text" name="confirm"><br>
+        <input type="hidden" name="type" value="register_manager">
+        <input type="checkbox" required> <font color="red">*</font> <a href="#">我同意此条款</a><br>
+        <input type="submit" value="注册"> &nbsp;
+        <input type="button" value="返回主页" onclick="window.location.href='../../'">
+    </form>
+</div>
+
+<script type="text/javascript">
+
+    function checkPassword(str) {
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+        return re.test(str);
+    }
+
+    function checkForm(form) {
+        if(form.password.value != "" && form.password.value == form.passwordConfirm.value) {
+            if(!checkPassword(form.password.value)) {
+                alert("Error: The password must contain 6 number, upper & lower characters!");
+                form.password.focus();
+                return false;
+            }
+        } else {
+            alert("Error: Password do not match");
+            form.passwordConfirm.focus();
+            return false;
+        }
+        return true;
+    }
+
+</script>
+</body>
+</html>

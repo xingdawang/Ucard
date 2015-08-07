@@ -1,0 +1,18 @@
+xingda_testa_test:
+    resource: "@XingdaTestaTestBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ucardtest:
+    resource: "@UcardtestBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+ucard_xingda:
+    resource: "@UcardXingdaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>管理员注册</title>
+</head>
+<body>
+<div style="padding-left: 40%">
+    <form action="../Controllers/UserController.php" method="post">
+        <p>添加发件人</p><br>
+        用户名：<input type="text" name="name" required> <font color="red">*</font><br>
+        邮件地址:<input type="email" name="email" required> <font color="red">*</font><br>
+        国家：<input type="text" name="country"><br>
+        地区：<input type="text" name="district"><br>
+        地址：<input type="text" name="address"><br>
+        邮编：<input type="text" name="postcode"><br>
+        电话：<input type="tel" name="tel"><br>
+        初始化密码：12345<br><br>
+        <input type="hidden" name="type" value="add_manager">
+        <input type="submit" value="添加"> &nbsp;
+    </form>
+</div>
+</body>
+</html>

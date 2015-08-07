@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录</title>
+</head>
+<body>
+<div align="center">
+    <form action="../Controllers/UserController.php" method="post">
+        <p>管理员登录</p><br>
+        邮件地址:<input type="email" name="email" required><br>
+        用户密码:<input type="password" name="password" required><br>
+        <input type="hidden" name="type" value="manager_login">
+        <input type="submit" value="确定"> &nbsp;
+        <input type="button" value="忘记密码" onclick="window.location.href='find_password.html'">
+        <input type="button" value="注册管理员" onclick="window.location.href='manager_register.html'">
+        <br>
+    </form>
+</div>
+</body>
+</html>
