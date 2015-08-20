@@ -37,6 +37,7 @@
             echo "用户昵称: ".$row['user_nickname']."<br>";
             echo "用户邮箱 :".$row['email']."<br>";
             echo "明信片ID: ".$row['postcard_uid']."<br>";
+            echo "商品订单号: ".$row['swift_number']."<br>";
             echo "祝福: ".$row['postcard_greeting']."<br>";
             echo "制作时间: ". $row['postcard_making_time']."<br>";
             echo "消费金额: ".$row['total_price']." ".$row['currency']."<br>";
